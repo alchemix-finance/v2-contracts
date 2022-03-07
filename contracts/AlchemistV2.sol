@@ -51,7 +51,7 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
     uint256 public constant FIXED_POINT_SCALAR = 1e18;
 
     /// @inheritdoc IAlchemistV2Immutables
-    string public constant override version = "2.2.3";
+    string public constant override version = "2.2.4";
 
     /// @inheritdoc IAlchemistV2Immutables
     address public override debtToken;
@@ -475,6 +475,8 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
         _checkState(yieldToken == ITokenAdapter(adapter).token());
         _checkSupportedYieldToken(yieldToken);
         _yieldTokens[yieldToken].adapter = adapter;
+        TokenUtils.safeApprove(yieldToken, adapter, type(uint256).max);
+        TokenUtils.safeApprove(ITokenAdapter(adapter).underlyingToken(), adapter, type(uint256).max);
         emit TokenAdapterUpdated(yieldToken, adapter);
     }
 

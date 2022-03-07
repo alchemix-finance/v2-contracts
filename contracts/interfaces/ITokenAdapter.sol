@@ -3,6 +3,11 @@ pragma solidity >=0.5.0;
 /// @title  ITokenAdapter
 /// @author Alchemix Finance
 interface ITokenAdapter {
+    /// @notice Gets the current version.
+    ///
+    /// @return The version.
+    function version() external view returns (string memory);
+
     /// @notice Gets the address of the yield token that this adapter supports.
     ///
     /// @return The address of the yield token.

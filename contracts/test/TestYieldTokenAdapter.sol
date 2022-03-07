@@ -8,6 +8,8 @@ import "../libraries/TokenUtils.sol";
 /// @title  TestYieldTokenAdapter
 /// @author Alchemix Finance
 contract TestYieldTokenAdapter is ITokenAdapter {
+    string public constant override version = "2.0.0";
+    
     /// @inheritdoc ITokenAdapter
     address public immutable override token;
 

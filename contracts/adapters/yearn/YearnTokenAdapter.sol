@@ -11,6 +11,7 @@ import "../../libraries/TokenUtils.sol";
 /// @author Alchemix Finance
 contract YearnTokenAdapter is ITokenAdapter {
     uint256 private constant MAXIMUM_SLIPPAGE = 10000;
+    string public constant override version = "2.1.0";
 
     address public immutable override token;
     address public immutable override underlyingToken;
