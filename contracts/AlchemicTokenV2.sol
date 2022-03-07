@@ -15,9 +15,6 @@ import {IERC3156FlashLender} from "./interfaces/IERC3156FlashLender.sol";
 /// @author Alchemix Finance
 ///
 /// @notice This is the contract for version two alchemic tokens.
-/// @notice Initially, the contract deployer is given both the admin and minter role. This allows them to pre-mine
-///         tokens, transfer admin to a timelock contract, and lastly, grant the staking pools the minter role. After
-///         this is done, the deployer must revoke their admin role and minter role.
 contract AlchemicTokenV2 is AccessControl, ReentrancyGuard, ERC20, IERC3156FlashLender {
 
   /// @notice The identifier of the role which maintains other roles.

@@ -9,9 +9,6 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 /// @author Alchemix Finance
 ///
 /// @notice This is the contract for version one alchemic tokens.
-/// @notice Initially, the contract deployer is given both the admin and minter role. This allows them to pre-mine
-///         tokens, transfer admin to a timelock contract, and lastly, grant the staking pools the minter role. After
-///         this is done, the deployer must revoke their admin role and minter role.
 contract AlchemicTokenV1 is AccessControl, ERC20("Alchemix USD", "alUSD") {
   using SafeERC20 for ERC20;
 
