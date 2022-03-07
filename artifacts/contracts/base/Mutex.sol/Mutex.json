@@ -1,0 +1,16 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Mutex",
+  "sourceName": "contracts/base/Mutex.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "LockAlreadyClaimed",
+      "type": "error"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

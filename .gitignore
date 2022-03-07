@@ -2,13 +2,11 @@ node_modules
 .env
 coverage
 coverage.json
-typechain
 .idea
 yarn-error.log
 
 # Hardhat files
 cache
-artifacts
 
 # Local deployments
 deployments/localhost
