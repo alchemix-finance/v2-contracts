@@ -179,10 +179,11 @@ interface IAlchemistV2Events {
 
     /// @notice Emitted when `sender` liquidates `share` shares of `yieldToken`.
     ///
-    /// @param owner     The address of the account owner liquidating shares.
-    /// @param yieldToken The address of the yield token.
-    /// @param shares     The amount of the shares of `yieldToken` that were liquidated.
-    event Liquidate(address indexed owner, address indexed yieldToken, uint256 shares);
+    /// @param owner           The address of the account owner liquidating shares.
+    /// @param yieldToken      The address of the yield token.
+    /// @param underlyingToken The address of the underlying token.
+    /// @param shares          The amount of the shares of `yieldToken` that were liquidated.
+    event Liquidate(address indexed owner, address indexed yieldToken, address indexed underlyingToken, uint256 shares);
 
     /// @notice Emitted when `sender` burns `amount` debt tokens to grant credit to users who have deposited `yieldToken`.
     ///

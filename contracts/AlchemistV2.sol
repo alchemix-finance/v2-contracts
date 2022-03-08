@@ -51,7 +51,7 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
     uint256 public constant FIXED_POINT_SCALAR = 1e18;
 
     /// @inheritdoc IAlchemistV2Immutables
-    string public constant override version = "2.2.4";
+    string public constant override version = "2.2.5";
 
     /// @inheritdoc IAlchemistV2Immutables
     address public override debtToken;
@@ -861,7 +861,7 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
         // Inform the transmuter that it has received tokens.
         IERC20TokenReceiver(transmuter).onERC20Received(underlyingToken, amountUnderlyingTokens);
 
-        emit Liquidate(msg.sender, yieldToken, actualShares);
+        emit Liquidate(msg.sender, yieldToken, underlyingToken, actualShares);
 
         return actualShares;
     }
