@@ -34,6 +34,7 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     "setAlchemist(address)": FunctionFragment;
     "setFlowRate(address,uint256)": FunctionFragment;
     "setSource(address,bool)": FunctionFragment;
+    "setTransmuter(address,address)": FunctionFragment;
     "setWeights(address,address[],uint256[])": FunctionFragment;
     "version()": FunctionFragment;
     "withdraw(address,uint256,address)": FunctionFragment;
@@ -90,6 +91,10 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     values: [string, boolean]
   ): string;
   encodeFunctionData(
+    functionFragment: "setTransmuter",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setWeights",
     values: [string, string[], BigNumberish[]]
   ): string;
@@ -143,6 +148,10 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setSource", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setTransmuter",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "setWeights", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
@@ -157,6 +166,7 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     "SetAlchemist(address)": EventFragment;
     "SetFlowRate(address,uint256)": EventFragment;
     "SetSource(address,bool)": EventFragment;
+    "SetTransmuter(address,address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "RefreshStrategies"): EventFragment;
@@ -164,6 +174,7 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "SetAlchemist"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetFlowRate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetSource"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetTransmuter"): EventFragment;
 }
 
 export type RefreshStrategiesEvent = TypedEvent<[] & {}>;
@@ -180,6 +191,10 @@ export type SetFlowRateEvent = TypedEvent<
 
 export type SetSourceEvent = TypedEvent<
   [string, boolean] & { source: string; flag: boolean }
+>;
+
+export type SetTransmuterEvent = TypedEvent<
+  [string, string] & { underlyingToken: string; transmuter: string }
 >;
 
 export class ITransmuterBuffer extends BaseContract {
@@ -292,6 +307,12 @@ export class ITransmuterBuffer extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    setTransmuter(
+      underlyingToken: string,
+      newTransmuter: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     setWeights(
       weightToken: string,
       tokens: string[],
@@ -382,6 +403,12 @@ export class ITransmuterBuffer extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  setTransmuter(
+    underlyingToken: string,
+    newTransmuter: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   setWeights(
     weightToken: string,
     tokens: string[],
@@ -459,6 +486,12 @@ export class ITransmuterBuffer extends BaseContract {
     setSource(
       source: string,
       flag: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setTransmuter(
+      underlyingToken: string,
+      newTransmuter: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -540,6 +573,22 @@ export class ITransmuterBuffer extends BaseContract {
       source?: null,
       flag?: null
     ): TypedEventFilter<[string, boolean], { source: string; flag: boolean }>;
+
+    "SetTransmuter(address,address)"(
+      underlyingToken?: null,
+      transmuter?: null
+    ): TypedEventFilter<
+      [string, string],
+      { underlyingToken: string; transmuter: string }
+    >;
+
+    SetTransmuter(
+      underlyingToken?: null,
+      transmuter?: null
+    ): TypedEventFilter<
+      [string, string],
+      { underlyingToken: string; transmuter: string }
+    >;
   };
 
   estimateGas: {
@@ -606,6 +655,12 @@ export class ITransmuterBuffer extends BaseContract {
     setSource(
       source: string,
       flag: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setTransmuter(
+      underlyingToken: string,
+      newTransmuter: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -697,6 +752,12 @@ export class ITransmuterBuffer extends BaseContract {
     setSource(
       source: string,
       flag: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setTransmuter(
+      underlyingToken: string,
+      newTransmuter: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

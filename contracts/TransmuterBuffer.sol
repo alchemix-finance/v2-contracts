@@ -33,7 +33,7 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
     bytes32 public constant KEEPER = keccak256("KEEPER");
 
     /// @inheritdoc ITransmuterBuffer
-    string public constant override version = "2.0.0";
+    string public constant override version = "2.1.0";
 
     /// @notice The alchemist address.
     address public alchemist;
@@ -208,6 +208,15 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
         }
         sources[source] = flag;
         emit SetSource(source, flag);
+    }
+
+    /// @inheritdoc ITransmuterBuffer
+    function setTransmuter(address underlyingToken, address newTransmuter) external override onlyAdmin {
+        if (ITransmuterV2(newTransmuter).underlyingToken() != underlyingToken) {
+            revert IllegalArgument();
+        }
+        transmuter[underlyingToken] = newTransmuter;
+        emit SetTransmuter(underlyingToken, newTransmuter);
     }
 
     /// @inheritdoc ITransmuterBuffer

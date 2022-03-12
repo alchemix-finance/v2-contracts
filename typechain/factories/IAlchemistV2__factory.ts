@@ -405,6 +405,12 @@ const _abi = [
         type: "address",
       },
       {
+        indexed: true,
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
         indexed: false,
         internalType: "uint256",
         name: "shares",

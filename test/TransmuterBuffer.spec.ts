@@ -413,6 +413,31 @@ describe("Transmuter Buffer", () => {
     ).revertedWith("IllegalState");
   });
 
+  describe("setTransmuter()", () => {
+    let newTransmuterDai: TransmuterMock;
+
+    beforeEach(async () => {
+      const transmuterFactory = await ethers.getContractFactory("TransmuterMock");
+      newTransmuterDai = (await transmuterFactory
+        .connect(deployer)
+        .deploy(
+          debtToken.address,
+          underlyingToken.address,
+          transmuterBuffer.address
+        )) as TransmuterMock;
+    })
+
+    it("reverts if underlyingToken is not the same underlying token supported by the transmuter", async () => {
+      await expect(transmuterBuffer.connect(admin).setTransmuter(underlyingToken6.address, newTransmuterDai.address)).revertedWith("IllegalArgument()")
+    })
+
+    it("sets the transmuter", async () => {
+      await transmuterBuffer.connect(admin).setTransmuter(underlyingToken.address, newTransmuterDai.address)
+      const newTransmuterAddress = await transmuterBuffer.transmuter(underlyingToken.address);
+      expect(newTransmuterAddress).equal(newTransmuterDai.address);
+    })
+  })
+
   describe("onERC20Received()", () => {
     const depositAmt = parseEther("100");
     const mintAmt = parseEther("50");

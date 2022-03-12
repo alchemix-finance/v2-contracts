@@ -27,6 +27,7 @@ interface TransmuterV2Interface extends ethers.utils.Interface {
     "ZERO_ADDRESS()": FunctionFragment;
     "buffer()": FunctionFragment;
     "claim(uint256,address)": FunctionFragment;
+    "conversionFactor()": FunctionFragment;
     "deposit(uint256,address)": FunctionFragment;
     "exchange(uint256)": FunctionFragment;
     "getExchangedBalance(address)": FunctionFragment;
@@ -64,6 +65,10 @@ interface TransmuterV2Interface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "claim",
     values: [BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "conversionFactor",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "deposit",
@@ -150,6 +155,10 @@ interface TransmuterV2Interface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "buffer", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "claim", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "conversionFactor",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exchange", data: BytesLike): Result;
   decodeFunctionResult(
@@ -339,6 +348,8 @@ export class TransmuterV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    conversionFactor(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     deposit(
       amount: BigNumberish,
       owner: string,
@@ -446,6 +457,8 @@ export class TransmuterV2 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  conversionFactor(overrides?: CallOverrides): Promise<BigNumber>;
+
   deposit(
     amount: BigNumberish,
     owner: string,
@@ -552,6 +565,8 @@ export class TransmuterV2 extends BaseContract {
       recipient: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    conversionFactor(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       amount: BigNumberish,
@@ -799,6 +814,8 @@ export class TransmuterV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    conversionFactor(overrides?: CallOverrides): Promise<BigNumber>;
+
     deposit(
       amount: BigNumberish,
       owner: string,
@@ -911,6 +928,8 @@ export class TransmuterV2 extends BaseContract {
       recipient: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    conversionFactor(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
       amount: BigNumberish,

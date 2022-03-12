@@ -87,6 +87,25 @@ const _abi = [
     type: "event",
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "address",
+        name: "transmuter",
+        type: "address",
+      },
+    ],
+    name: "SetTransmuter",
+    type: "event",
+  },
+  {
     inputs: [],
     name: "burnCredit",
     outputs: [],
@@ -287,6 +306,24 @@ const _abi = [
       },
     ],
     name: "setSource",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "newTransmuter",
+        type: "address",
+      },
+    ],
+    name: "setTransmuter",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

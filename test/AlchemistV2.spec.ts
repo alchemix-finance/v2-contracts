@@ -3056,7 +3056,7 @@ describe("AlchemistV2", () => {
     it("emits a Liquidate event", async () => {
       await expect(alchemist.liquidate(yieldToken.address, liquidateAmount, liquidateAmount))
         .to.emit(alchemist, "Liquidate")
-        .withArgs(wallet.address, yieldToken.address, liquidateAmount);
+        .withArgs(wallet.address, yieldToken.address, underlyingToken.address, liquidateAmount);
     });
 
     it("caps liquidation amount to account debt", async () => {

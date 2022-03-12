@@ -1,29 +1,32 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.11;
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
-import {ITransmuterV2} from "../interfaces/transmuter/ITransmuterV2.sol";
+import { IERC20 } from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import { SafeERC20 } from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import { ITransmuterV2 } from "../interfaces/transmuter/ITransmuterV2.sol";
 
 contract TransmuterBufferMock {
   using SafeERC20 for IERC20;
 
-  address public transmuter;
+  mapping(address => address) public transmuters;
 
   constructor() {}
 
-  function initialize(address _transmuter) external {
-    transmuter = _transmuter;
+  function initialize(address[] calldata _underlyingTokens, address[] calldata _transmuters) external {
+    for (uint256 i = 0; i < _underlyingTokens.length; i++) {
+      transmuters[_underlyingTokens[i]] = _transmuters[i];
+    }
   }
 
-  function exchange(IERC20 underlyingToken, uint256 amount) external {
-    ITransmuterV2(transmuter).exchange(amount);
+  function exchange(address underlyingToken, uint256 amount) external {
+    IERC20(underlyingToken).safeTransferFrom(msg.sender, address(this), amount);
+    ITransmuterV2(transmuters[underlyingToken]).exchange(amount);
   }
 
   function withdraw(
-    IERC20 underlyingToken,
+    address underlyingToken,
     uint256 amount,
     address recipient
   ) external {
-    underlyingToken.safeTransfer(recipient, amount);
+    IERC20(underlyingToken).safeTransfer(recipient, amount);
   }
 }

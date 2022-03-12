@@ -111,7 +111,9 @@ library Tick {
       self.values[tick.next].prev = tick.prev;
     }
 
-    // Zero out the information contained within the tick.
-    delete self.values[id];
+    // Zero out the pointers.
+    // NOTE(nomad): This fixes the bug where the current accrued weight would get erased.
+    self.values[id].next = 0;
+    self.values[id].prev = 0;
   }
 }

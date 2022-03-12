@@ -90,6 +90,11 @@ interface ITransmuterV2 {
   /// @return The exchanged balance.
   function getExchangedBalance(address owner) external view returns (uint256);
 
+  /// @dev The conversion factor used to convert between underlying token amounts and debt token amounts.
+  ///
+  /// @return The coversion factor.
+  function conversionFactor() external view returns (uint256);
+
   /// @dev Deposits tokens to be exchanged into an account.
   ///
   /// @param amount The amount of tokens to deposit.
@@ -106,10 +111,7 @@ interface ITransmuterV2 {
   ///
   /// @param amount    The amount of tokens to claim.
   /// @param recipient The address which will receive the claimed tokens.
-  function claim(
-    uint256 amount,
-    address recipient
-  ) external;
+  function claim(uint256 amount, address recipient) external;
 
   /// @dev Exchanges `amount` underlying tokens for `amount` synthetic tokens staked in the system.
   ///

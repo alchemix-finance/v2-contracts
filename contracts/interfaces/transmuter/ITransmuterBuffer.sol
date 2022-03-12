@@ -52,6 +52,9 @@ interface ITransmuterBuffer is IERC20TokenReceiver {
   /// @notice Emitted when a source is set.
   event SetSource(address source, bool flag);
 
+  /// @notice Emitted when a transmuter is updated.
+  event SetTransmuter(address underlyingToken, address transmuter);
+
   /// @notice Gets the current version.
   ///
   /// @return The version.
@@ -91,6 +94,14 @@ interface ITransmuterBuffer is IERC20TokenReceiver {
   /// @param source The target source.
   /// @param flag   The status to set for the target source.
   function setSource(address source, bool flag) external;
+
+  /// @notice Set transmuter by admin.
+  ///
+  /// This function reverts if the caller is not the current admin.
+  ///
+  /// @param underlyingToken The target underlying token to update.
+  /// @param newTransmuter   The new transmuter for the target `underlyingToken`.
+  function setTransmuter(address underlyingToken, address newTransmuter) external;
 
   /// @notice Set alchemist by admin.
   ///

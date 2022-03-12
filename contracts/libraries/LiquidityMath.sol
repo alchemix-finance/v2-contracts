@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity >=0.5.0;
 
-import {IllegalArgument} from "../base/Errors.sol";
+import { IllegalArgument } from "../base/Errors.sol";
 
-import {FixedPointMath} from "./FixedPointMath.sol";
+import { FixedPointMath } from "./FixedPointMath.sol";
 
 /// @title  LiquidityMath
 /// @author Alchemix Finance

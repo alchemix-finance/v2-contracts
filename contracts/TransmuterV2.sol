@@ -102,7 +102,7 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   bytes32 public constant SENTINEL = keccak256("SENTINEL");
 
   /// @inheritdoc ITransmuterV2
-  string public constant override version = "2.0.0";
+  string public constant override version = "2.1.0";
 
   /// @dev the synthetic token to be transmuted
   address public syntheticToken;
@@ -135,8 +135,11 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   /// @dev The address of the external whitelist contract.
   address public override whitelist;
 
+  /// @dev The amount of decimal places needed to normalize collateral to debtToken
+  uint256 public override conversionFactor;
+
   constructor() initializer {}
-  
+
   function initialize(
     address _syntheticToken,
     address _underlyingToken,
@@ -149,11 +152,14 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
 
     syntheticToken = _syntheticToken;
     underlyingToken = _underlyingToken;
+    uint8 debtTokenDecimals = TokenUtils.expectDecimals(syntheticToken);
+    uint8 underlyingTokenDecimals = TokenUtils.expectDecimals(underlyingToken);
+    conversionFactor = 10**(debtTokenDecimals - underlyingTokenDecimals);
     buffer = _buffer;
     // Push a blank tick to function as a sentinel value in the active ticks queue.
     ticks.next();
 
-    isPaused  = false;
+    isPaused = false;
     whitelist = _whitelist;
   }
 
@@ -200,11 +206,13 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   /// @inheritdoc ITransmuterV2
   function deposit(uint256 amount, address owner) external override nonReentrant {
     _onlyWhitelisted();
-    _updateAccount(UpdateAccountParams({
-      owner:            owner,
-      unexchangedDelta: SafeCast.toInt256(amount),
-      exchangedDelta: 0
-    }));
+    _updateAccount(
+      UpdateAccountParams({
+        owner: owner,
+        unexchangedDelta: SafeCast.toInt256(amount),
+        exchangedDelta: 0
+      })
+    );
     TokenUtils.safeTransferFrom(syntheticToken, msg.sender, address(this), amount);
     emit Deposit(msg.sender, owner, amount);
   }
@@ -212,11 +220,13 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   /// @inheritdoc ITransmuterV2
   function withdraw(uint256 amount, address recipient) external override nonReentrant {
     _onlyWhitelisted();
-    _updateAccount(UpdateAccountParams({
-      owner:            msg.sender,
-      unexchangedDelta: -SafeCast.toInt256(amount),
-      exchangedDelta:   0
-    }));
+    _updateAccount(
+      UpdateAccountParams({ 
+        owner: msg.sender,
+        unexchangedDelta: -SafeCast.toInt256(amount),
+        exchangedDelta: 0
+      })
+    );
     TokenUtils.safeTransfer(syntheticToken, recipient, amount);
     emit Withdraw(msg.sender, recipient, amount);
   }
@@ -224,11 +234,13 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   /// @inheritdoc ITransmuterV2
   function claim(uint256 amount, address recipient) external override nonReentrant {
     _onlyWhitelisted();
-    _updateAccount(UpdateAccountParams({
-      owner:            msg.sender,
-      unexchangedDelta: 0,
-      exchangedDelta:   -SafeCast.toInt256(amount)
-    }));
+    _updateAccount(
+      UpdateAccountParams({
+        owner: msg.sender,
+        unexchangedDelta: 0,
+        exchangedDelta: -SafeCast.toInt256(_normalizeUnderlyingTokensToDebt(amount))
+      })
+    );
     TokenUtils.safeBurn(syntheticToken, amount);
     ITransmuterBuffer(buffer).withdraw(underlyingToken, amount, msg.sender);
     emit Claim(msg.sender, recipient, amount);
@@ -236,8 +248,10 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
 
   /// @inheritdoc ITransmuterV2
   function exchange(uint256 amount) external override nonReentrant onlyBuffer notPaused {
+    uint256 normaizedAmount = _normalizeUnderlyingTokensToDebt(amount);
+
     if (totalUnexchanged == 0) {
-      totalBuffered += amount;
+      totalBuffered += normaizedAmount;
       emit Exchange(msg.sender, amount);
       return;
     }
@@ -255,7 +269,7 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
       examineTick: cache.ticksHead,
       totalUnexchanged: cache.totalUnexchanged,
       satisfiedTick: cache.satisfiedTick,
-      distributeAmount: amount,
+      distributeAmount: normaizedAmount,
       accumulatedWeight: current.accumulatedWeight,
       maximumWeight: FixedPointMath.encode(0),
       dustedWeight: FixedPointMath.encode(0)
@@ -526,5 +540,27 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
         revert Unauthorized();
       }
     }
+  }
+
+  /// @dev Normalize `amount` of `underlyingToken` to a value which is comparable to units of the debt token.
+  ///
+  /// @param amount          The amount of the debt token.
+  ///
+  /// @return The normalized amount.
+  function _normalizeUnderlyingTokensToDebt(uint256 amount) internal view returns (uint256) {
+    return amount * conversionFactor;
+  }
+
+  /// @dev Normalize `amount` of the debt token to a value which is comparable to units of `underlyingToken`.
+  ///
+  /// @dev This operation will result in truncation of some of the least significant digits of `amount`. This
+  ///      truncation amount will be the least significant N digits where N is the difference in decimals between
+  ///      the debt token and the underlying token.
+  ///
+  /// @param amount          The amount of the debt token.
+  ///
+  /// @return The normalized amount.
+  function _normalizeDebtTokensToUnderlying(uint256 amount) internal view returns (uint256) {
+    return amount / conversionFactor;
   }
 }

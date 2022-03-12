@@ -22,8 +22,8 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface TransmuterBufferMockInterface extends ethers.utils.Interface {
   functions: {
     "exchange(address,uint256)": FunctionFragment;
-    "initialize(address)": FunctionFragment;
-    "transmuter()": FunctionFragment;
+    "initialize(address[],address[])": FunctionFragment;
+    "transmuters(address)": FunctionFragment;
     "withdraw(address,uint256,address)": FunctionFragment;
   };
 
@@ -31,11 +31,11 @@ interface TransmuterBufferMockInterface extends ethers.utils.Interface {
     functionFragment: "exchange",
     values: [string, BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "initialize", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "transmuter",
-    values?: undefined
+    functionFragment: "initialize",
+    values: [string[], string[]]
   ): string;
+  encodeFunctionData(functionFragment: "transmuters", values: [string]): string;
   encodeFunctionData(
     functionFragment: "withdraw",
     values: [string, BigNumberish, string]
@@ -43,7 +43,10 @@ interface TransmuterBufferMockInterface extends ethers.utils.Interface {
 
   decodeFunctionResult(functionFragment: "exchange", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "transmuter", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "transmuters",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
   events: {};
@@ -100,11 +103,12 @@ export class TransmuterBufferMock extends BaseContract {
     ): Promise<ContractTransaction>;
 
     initialize(
-      _transmuter: string,
+      _underlyingTokens: string[],
+      _transmuters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    transmuter(overrides?: CallOverrides): Promise<[string]>;
+    transmuters(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
     withdraw(
       underlyingToken: string,
@@ -121,11 +125,12 @@ export class TransmuterBufferMock extends BaseContract {
   ): Promise<ContractTransaction>;
 
   initialize(
-    _transmuter: string,
+    _underlyingTokens: string[],
+    _transmuters: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  transmuter(overrides?: CallOverrides): Promise<string>;
+  transmuters(arg0: string, overrides?: CallOverrides): Promise<string>;
 
   withdraw(
     underlyingToken: string,
@@ -141,9 +146,13 @@ export class TransmuterBufferMock extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    initialize(_transmuter: string, overrides?: CallOverrides): Promise<void>;
+    initialize(
+      _underlyingTokens: string[],
+      _transmuters: string[],
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    transmuter(overrides?: CallOverrides): Promise<string>;
+    transmuters(arg0: string, overrides?: CallOverrides): Promise<string>;
 
     withdraw(
       underlyingToken: string,
@@ -163,11 +172,12 @@ export class TransmuterBufferMock extends BaseContract {
     ): Promise<BigNumber>;
 
     initialize(
-      _transmuter: string,
+      _underlyingTokens: string[],
+      _transmuters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    transmuter(overrides?: CallOverrides): Promise<BigNumber>;
+    transmuters(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     withdraw(
       underlyingToken: string,
@@ -185,11 +195,15 @@ export class TransmuterBufferMock extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     initialize(
-      _transmuter: string,
+      _underlyingTokens: string[],
+      _transmuters: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    transmuter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    transmuters(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     withdraw(
       underlyingToken: string,

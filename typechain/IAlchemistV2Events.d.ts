@@ -32,7 +32,7 @@ interface IAlchemistV2EventsInterface extends ethers.utils.Interface {
     "Donate(address,address,uint256)": EventFragment;
     "Harvest(address,uint256,uint256)": EventFragment;
     "KeeperSet(address,bool)": EventFragment;
-    "Liquidate(address,address,uint256)": EventFragment;
+    "Liquidate(address,address,address,uint256)": EventFragment;
     "LiquidationLimitUpdated(address,uint256,uint256)": EventFragment;
     "MaximumExpectedValueUpdated(address,uint256)": EventFragment;
     "MaximumLossUpdated(address,uint256)": EventFragment;
@@ -156,9 +156,10 @@ export type KeeperSetEvent = TypedEvent<
 >;
 
 export type LiquidateEvent = TypedEvent<
-  [string, string, BigNumber] & {
+  [string, string, string, BigNumber] & {
     owner: string;
     yieldToken: string;
+    underlyingToken: string;
     shares: BigNumber;
   }
 >;
@@ -483,22 +484,34 @@ export class IAlchemistV2Events extends BaseContract {
       flag?: null
     ): TypedEventFilter<[string, boolean], { sentinel: string; flag: boolean }>;
 
-    "Liquidate(address,address,uint256)"(
+    "Liquidate(address,address,address,uint256)"(
       owner?: string | null,
       yieldToken?: string | null,
+      underlyingToken?: string | null,
       shares?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { owner: string; yieldToken: string; shares: BigNumber }
+      [string, string, string, BigNumber],
+      {
+        owner: string;
+        yieldToken: string;
+        underlyingToken: string;
+        shares: BigNumber;
+      }
     >;
 
     Liquidate(
       owner?: string | null,
       yieldToken?: string | null,
+      underlyingToken?: string | null,
       shares?: null
     ): TypedEventFilter<
-      [string, string, BigNumber],
-      { owner: string; yieldToken: string; shares: BigNumber }
+      [string, string, string, BigNumber],
+      {
+        owner: string;
+        yieldToken: string;
+        underlyingToken: string;
+        shares: BigNumber;
+      }
     >;
 
     "LiquidationLimitUpdated(address,uint256,uint256)"(
