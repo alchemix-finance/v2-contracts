@@ -83,12 +83,19 @@ interface ITransmuterV2 {
   /// @return The unexchanged balance.
   function getUnexchangedBalance(address owner) external view returns (uint256);
 
-  /// @dev Gets the exchanged balance of an account.
+  /// @dev Gets the exchanged balance of an account, in units of `debtToken`.
   ///
   /// @param owner The address of the account owner.
   ///
   /// @return The exchanged balance.
   function getExchangedBalance(address owner) external view returns (uint256);
+
+  /// @dev Gets the claimable balance of an account, in units of `underlyingToken`.
+  ///
+  /// @param owner The address of the account owner.
+  ///
+  /// @return The claimable balance.
+  function getClaimableBalance(address owner) external view returns (uint256);
 
   /// @dev The conversion factor used to convert between underlying token amounts and debt token amounts.
   ///

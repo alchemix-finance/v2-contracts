@@ -22,34 +22,34 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 
 interface IWETHGatewayInterface extends ethers.utils.Interface {
   functions: {
-    "depositUnderlying(address,address,uint256,address,uint256)": FunctionFragment;
-    "refreshAllowance(address)": FunctionFragment;
-    "withdrawUnderlying(address,address,uint256,address,uint256)": FunctionFragment;
+    "borrowETH(address,uint256,uint256,uint16)": FunctionFragment;
+    "depositETH(address,address,uint16)": FunctionFragment;
+    "repayETH(address,uint256,uint256,address)": FunctionFragment;
+    "withdrawETH(address,uint256,address)": FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "depositUnderlying",
-    values: [string, string, BigNumberish, string, BigNumberish]
+    functionFragment: "borrowETH",
+    values: [string, BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "refreshAllowance",
-    values: [string]
+    functionFragment: "depositETH",
+    values: [string, string, BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "withdrawUnderlying",
-    values: [string, string, BigNumberish, string, BigNumberish]
+    functionFragment: "repayETH",
+    values: [string, BigNumberish, BigNumberish, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawETH",
+    values: [string, BigNumberish, string]
   ): string;
 
+  decodeFunctionResult(functionFragment: "borrowETH", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "depositETH", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "repayETH", data: BytesLike): Result;
   decodeFunctionResult(
-    functionFragment: "depositUnderlying",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "refreshAllowance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "withdrawUnderlying",
+    functionFragment: "withdrawETH",
     data: BytesLike
   ): Result;
 
@@ -100,74 +100,95 @@ export class IWETHGateway extends BaseContract {
   interface: IWETHGatewayInterface;
 
   functions: {
-    depositUnderlying(
-      alchemist: string,
-      yieldToken: string,
+    borrowETH(
+      lendingPool: string,
       amount: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    refreshAllowance(
-      alchemist: string,
+      interesRateMode: BigNumberish,
+      referralCode: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    withdrawUnderlying(
-      alchemist: string,
-      yieldToken: string,
-      shares: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
+    depositETH(
+      lendingPool: string,
+      onBehalfOf: string,
+      referralCode: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    repayETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      rateMode: BigNumberish,
+      onBehalfOf: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    withdrawETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      onBehalfOf: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
 
-  depositUnderlying(
-    alchemist: string,
-    yieldToken: string,
+  borrowETH(
+    lendingPool: string,
     amount: BigNumberish,
-    recipient: string,
-    minimumAmountOut: BigNumberish,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  refreshAllowance(
-    alchemist: string,
+    interesRateMode: BigNumberish,
+    referralCode: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  withdrawUnderlying(
-    alchemist: string,
-    yieldToken: string,
-    shares: BigNumberish,
-    recipient: string,
-    minimumAmountOut: BigNumberish,
+  depositETH(
+    lendingPool: string,
+    onBehalfOf: string,
+    referralCode: BigNumberish,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  repayETH(
+    lendingPool: string,
+    amount: BigNumberish,
+    rateMode: BigNumberish,
+    onBehalfOf: string,
+    overrides?: PayableOverrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  withdrawETH(
+    lendingPool: string,
+    amount: BigNumberish,
+    onBehalfOf: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    depositUnderlying(
-      alchemist: string,
-      yieldToken: string,
+    borrowETH(
+      lendingPool: string,
       amount: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
+      interesRateMode: BigNumberish,
+      referralCode: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    refreshAllowance(
-      alchemist: string,
+    depositETH(
+      lendingPool: string,
+      onBehalfOf: string,
+      referralCode: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    withdrawUnderlying(
-      alchemist: string,
-      yieldToken: string,
-      shares: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
+    repayETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      rateMode: BigNumberish,
+      onBehalfOf: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    withdrawETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      onBehalfOf: string,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -175,51 +196,65 @@ export class IWETHGateway extends BaseContract {
   filters: {};
 
   estimateGas: {
-    depositUnderlying(
-      alchemist: string,
-      yieldToken: string,
+    borrowETH(
+      lendingPool: string,
       amount: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    refreshAllowance(
-      alchemist: string,
+      interesRateMode: BigNumberish,
+      referralCode: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    withdrawUnderlying(
-      alchemist: string,
-      yieldToken: string,
-      shares: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
+    depositETH(
+      lendingPool: string,
+      onBehalfOf: string,
+      referralCode: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    repayETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      rateMode: BigNumberish,
+      onBehalfOf: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    withdrawETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      onBehalfOf: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    depositUnderlying(
-      alchemist: string,
-      yieldToken: string,
+    borrowETH(
+      lendingPool: string,
       amount: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    refreshAllowance(
-      alchemist: string,
+      interesRateMode: BigNumberish,
+      referralCode: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    withdrawUnderlying(
-      alchemist: string,
-      yieldToken: string,
-      shares: BigNumberish,
-      recipient: string,
-      minimumAmountOut: BigNumberish,
+    depositETH(
+      lendingPool: string,
+      onBehalfOf: string,
+      referralCode: BigNumberish,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    repayETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      rateMode: BigNumberish,
+      onBehalfOf: string,
+      overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    withdrawETH(
+      lendingPool: string,
+      amount: BigNumberish,
+      onBehalfOf: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

@@ -102,7 +102,7 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   bytes32 public constant SENTINEL = keccak256("SENTINEL");
 
   /// @inheritdoc ITransmuterV2
-  string public constant override version = "2.1.0";
+  string public constant override version = "2.2.0";
 
   /// @dev the synthetic token to be transmuted
   address public syntheticToken;
@@ -241,7 +241,7 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
         exchangedDelta: -SafeCast.toInt256(_normalizeUnderlyingTokensToDebt(amount))
       })
     );
-    TokenUtils.safeBurn(syntheticToken, amount);
+    TokenUtils.safeBurn(syntheticToken, _normalizeUnderlyingTokensToDebt(amount));
     ITransmuterBuffer(buffer).withdraw(underlyingToken, amount, msg.sender);
     emit Claim(msg.sender, recipient, amount);
   }
@@ -368,24 +368,11 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
 
   /// @inheritdoc ITransmuterV2
   function getExchangedBalance(address owner) external view override returns (uint256 exchangedBalance) {
-    Account storage account = accounts[owner];
+    return _getExchangedBalance(owner);
+  }
 
-    if (account.occupiedTick <= satisfiedTick) {
-      exchangedBalance = account.exchangedBalance;
-      exchangedBalance += account.unexchangedBalance;
-      return exchangedBalance;
-    }
-
-    exchangedBalance = account.exchangedBalance;
-
-    uint256 exchanged = LiquidityMath.calculateProduct(
-      account.unexchangedBalance,
-      ticks.getWeight(account.occupiedTick, ticks.position)
-    );
-
-    exchangedBalance += exchanged;
-
-    return exchangedBalance;
+  function getClaimableBalance(address owner) external view override returns (uint256 claimableBalance) {
+    return _normalizeDebtTokensToUnderlying(_getExchangedBalance(owner));
   }
 
   /// @dev Updates an account.
@@ -562,5 +549,26 @@ contract TransmuterV2 is ITransmuterV2, Initializable, ReentrancyGuardUpgradeabl
   /// @return The normalized amount.
   function _normalizeDebtTokensToUnderlying(uint256 amount) internal view returns (uint256) {
     return amount / conversionFactor;
+  }
+
+  function _getExchangedBalance(address owner) internal view returns (uint256 exchangedBalance) {
+    Account storage account = accounts[owner];
+
+    if (account.occupiedTick <= satisfiedTick) {
+      exchangedBalance = account.exchangedBalance;
+      exchangedBalance += account.unexchangedBalance;
+      return exchangedBalance;
+    }
+
+    exchangedBalance = account.exchangedBalance;
+
+    uint256 exchanged = LiquidityMath.calculateProduct(
+      account.unexchangedBalance,
+      ticks.getWeight(account.occupiedTick, ticks.position)
+    );
+
+    exchangedBalance += exchanged;
+
+    return exchangedBalance;
   }
 }
