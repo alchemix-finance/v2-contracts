@@ -25,6 +25,7 @@ interface ITransmuterV2Interface extends ethers.utils.Interface {
     "conversionFactor()": FunctionFragment;
     "deposit(uint256,address)": FunctionFragment;
     "exchange(uint256)": FunctionFragment;
+    "getClaimableBalance(address)": FunctionFragment;
     "getExchangedBalance(address)": FunctionFragment;
     "getUnexchangedBalance(address)": FunctionFragment;
     "underlyingToken()": FunctionFragment;
@@ -48,6 +49,10 @@ interface ITransmuterV2Interface extends ethers.utils.Interface {
   encodeFunctionData(
     functionFragment: "exchange",
     values: [BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getClaimableBalance",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "getExchangedBalance",
@@ -75,6 +80,10 @@ interface ITransmuterV2Interface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "exchange", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getClaimableBalance",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getExchangedBalance",
     data: BytesLike
@@ -209,6 +218,11 @@ export class ITransmuterV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    getClaimableBalance(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
+
     getExchangedBalance(
       owner: string,
       overrides?: CallOverrides
@@ -253,6 +267,11 @@ export class ITransmuterV2 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  getClaimableBalance(
+    owner: string,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
+
   getExchangedBalance(
     owner: string,
     overrides?: CallOverrides
@@ -291,6 +310,11 @@ export class ITransmuterV2 extends BaseContract {
     ): Promise<void>;
 
     exchange(amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    getClaimableBalance(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     getExchangedBalance(
       owner: string,
@@ -425,6 +449,11 @@ export class ITransmuterV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    getClaimableBalance(
+      owner: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getExchangedBalance(
       owner: string,
       overrides?: CallOverrides
@@ -466,6 +495,11 @@ export class ITransmuterV2 extends BaseContract {
     exchange(
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    getClaimableBalance(
+      owner: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getExchangedBalance(

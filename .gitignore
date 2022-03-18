@@ -11,9 +11,6 @@ cache
 # Local deployments
 deployments/localhost
 
-# remove this when saving deployments
-.openzeppelin/
-
 # Mac
 .DS_Store
 

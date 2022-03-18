@@ -28,6 +28,8 @@ interface WETHGatewayInterface extends ethers.utils.Interface {
     "refreshAllowance(address)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
+    "version()": FunctionFragment;
+    "whitelist()": FunctionFragment;
     "withdrawUnderlying(address,address,uint256,address,uint256)": FunctionFragment;
   };
 
@@ -49,6 +51,8 @@ interface WETHGatewayInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     values: [string]
   ): string;
+  encodeFunctionData(functionFragment: "version", values?: undefined): string;
+  encodeFunctionData(functionFragment: "whitelist", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "withdrawUnderlying",
     values: [string, string, BigNumberish, string, BigNumberish]
@@ -72,6 +76,8 @@ interface WETHGatewayInterface extends ethers.utils.Interface {
     functionFragment: "transferOwnership",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "withdrawUnderlying",
     data: BytesLike
@@ -159,6 +165,10 @@ export class WETHGateway extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    version(overrides?: CallOverrides): Promise<[string]>;
+
+    whitelist(overrides?: CallOverrides): Promise<[string]>;
+
     withdrawUnderlying(
       alchemist: string,
       yieldToken: string,
@@ -196,6 +206,10 @@ export class WETHGateway extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  version(overrides?: CallOverrides): Promise<string>;
+
+  whitelist(overrides?: CallOverrides): Promise<string>;
+
   withdrawUnderlying(
     alchemist: string,
     yieldToken: string,
@@ -230,6 +244,10 @@ export class WETHGateway extends BaseContract {
       newOwner: string,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    version(overrides?: CallOverrides): Promise<string>;
+
+    whitelist(overrides?: CallOverrides): Promise<string>;
 
     withdrawUnderlying(
       alchemist: string,
@@ -287,6 +305,10 @@ export class WETHGateway extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    version(overrides?: CallOverrides): Promise<BigNumber>;
+
+    whitelist(overrides?: CallOverrides): Promise<BigNumber>;
+
     withdrawUnderlying(
       alchemist: string,
       yieldToken: string,
@@ -324,6 +346,10 @@ export class WETHGateway extends BaseContract {
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
+
+    version(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    whitelist(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     withdrawUnderlying(
       alchemist: string,

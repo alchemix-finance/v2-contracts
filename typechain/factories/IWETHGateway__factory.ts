@@ -11,7 +11,12 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "lendingPool",
+        name: "alchemist",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "yieldToken",
         type: "address",
       },
       {
@@ -20,17 +25,30 @@ const _abi = [
         type: "uint256",
       },
       {
-        internalType: "uint256",
-        name: "interesRateMode",
-        type: "uint256",
+        internalType: "address",
+        name: "recipient",
+        type: "address",
       },
       {
-        internalType: "uint16",
-        name: "referralCode",
-        type: "uint16",
+        internalType: "uint256",
+        name: "minimumAmountOut",
+        type: "uint256",
       },
     ],
-    name: "borrowETH",
+    name: "depositUnderlying",
+    outputs: [],
+    stateMutability: "payable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "alchemist",
+        type: "address",
+      },
+    ],
+    name: "refreshAllowance",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -39,72 +57,31 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "lendingPool",
+        name: "alchemist",
         type: "address",
       },
       {
         internalType: "address",
-        name: "onBehalfOf",
-        type: "address",
-      },
-      {
-        internalType: "uint16",
-        name: "referralCode",
-        type: "uint16",
-      },
-    ],
-    name: "depositETH",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "lendingPool",
+        name: "yieldToken",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "amount",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "rateMode",
+        name: "shares",
         type: "uint256",
       },
       {
         internalType: "address",
-        name: "onBehalfOf",
-        type: "address",
-      },
-    ],
-    name: "repayETH",
-    outputs: [],
-    stateMutability: "payable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "lendingPool",
+        name: "recipient",
         type: "address",
       },
       {
         internalType: "uint256",
-        name: "amount",
+        name: "minimumAmountOut",
         type: "uint256",
       },
-      {
-        internalType: "address",
-        name: "onBehalfOf",
-        type: "address",
-      },
     ],
-    name: "withdrawETH",
+    name: "withdrawUnderlying",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
