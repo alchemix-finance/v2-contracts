@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.11;
+pragma solidity ^0.8.11;
 
 interface IStakingPools {
     function acceptGovernance() external;
     function claim(uint256 _poolId) external;
+    function claim(uint256 _poolId, uint256 _claimAmount) external;
     function createPool(address _token) external returns (uint256);
     function deposit(uint256 _poolId, uint256 _depositAmount) external;
     function exit(uint256 _poolId) external;
