@@ -94,6 +94,10 @@ const config = {
         {
           privateKey: generateRandomHex(64),
           balance: "3000000000000000000000000",
+        },
+        {
+          privateKey: generateRandomHex(64),
+          balance: "3000000000000000000000000",
         }
       ],
     },
