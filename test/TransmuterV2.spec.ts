@@ -176,7 +176,7 @@ async function transmuterFixture([
   };
 }
 
-describe.only("TransmuterV2", () => {
+describe("TransmuterV2", () => {
   let syntheticToken: AlchemicTokenV2;
   let underlyingToken: TestERC20;
   let underlyingToken6: TestERC20;

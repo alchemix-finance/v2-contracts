@@ -365,6 +365,10 @@ declare module "hardhat/types/runtime" {
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TestERC20__factory>;
     getContractFactory(
+      name: "TestErc20Receiver",
+      signerOrOptions?: ethers.Signer | FactoryOptions
+    ): Promise<Contracts.TestErc20Receiver__factory>;
+    getContractFactory(
       name: "TestFlashBorrower",
       signerOrOptions?: ethers.Signer | FactoryOptions
     ): Promise<Contracts.TestFlashBorrower__factory>;
@@ -861,6 +865,11 @@ declare module "hardhat/types/runtime" {
       address: string,
       signer?: ethers.Signer
     ): Promise<Contracts.TestERC20>;
+    getContractAt(
+      name: "TestErc20Receiver",
+      address: string,
+      signer?: ethers.Signer
+    ): Promise<Contracts.TestErc20Receiver>;
     getContractAt(
       name: "TestFlashBorrower",
       address: string,

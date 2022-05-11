@@ -24,6 +24,7 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     "burnCredit()": FunctionFragment;
     "depositFunds(address,uint256)": FunctionFragment;
     "exchange(address)": FunctionFragment;
+    "flushToAmo(address,uint256)": FunctionFragment;
     "getAvailableFlow(address)": FunctionFragment;
     "getTotalCredit()": FunctionFragment;
     "getTotalUnderlyingBuffered(address)": FunctionFragment;
@@ -32,6 +33,8 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     "refreshStrategies()": FunctionFragment;
     "registerAsset(address,address)": FunctionFragment;
     "setAlchemist(address)": FunctionFragment;
+    "setAmo(address,address)": FunctionFragment;
+    "setDivertToAmo(address,bool)": FunctionFragment;
     "setFlowRate(address,uint256)": FunctionFragment;
     "setSource(address,bool)": FunctionFragment;
     "setTransmuter(address,address)": FunctionFragment;
@@ -50,6 +53,10 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "exchange", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "flushToAmo",
+    values: [string, BigNumberish]
+  ): string;
   encodeFunctionData(
     functionFragment: "getAvailableFlow",
     values: [string]
@@ -83,6 +90,14 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "setAmo",
+    values: [string, string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setDivertToAmo",
+    values: [string, boolean]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setFlowRate",
     values: [string, BigNumberish]
   ): string;
@@ -114,6 +129,7 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "exchange", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "flushToAmo", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getAvailableFlow",
     data: BytesLike
@@ -143,6 +159,11 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     functionFragment: "setAlchemist",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "setAmo", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setDivertToAmo",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setFlowRate",
     data: BytesLike
@@ -164,6 +185,8 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
     "RefreshStrategies()": EventFragment;
     "RegisterAsset(address,address)": EventFragment;
     "SetAlchemist(address)": EventFragment;
+    "SetAmo(address,address)": EventFragment;
+    "SetDivertToAmo(address,bool)": EventFragment;
     "SetFlowRate(address,uint256)": EventFragment;
     "SetSource(address,bool)": EventFragment;
     "SetTransmuter(address,address)": EventFragment;
@@ -172,6 +195,8 @@ interface ITransmuterBufferInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RefreshStrategies"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "RegisterAsset"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetAlchemist"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetAmo"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SetDivertToAmo"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetFlowRate"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetSource"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetTransmuter"): EventFragment;
@@ -184,6 +209,14 @@ export type RegisterAssetEvent = TypedEvent<
 >;
 
 export type SetAlchemistEvent = TypedEvent<[string] & { alchemist: string }>;
+
+export type SetAmoEvent = TypedEvent<
+  [string, string] & { underlyingToken: string; amo: string }
+>;
+
+export type SetDivertToAmoEvent = TypedEvent<
+  [string, boolean] & { underlyingToken: string; divert: boolean }
+>;
 
 export type SetFlowRateEvent = TypedEvent<
   [string, BigNumber] & { underlyingToken: string; flowRate: BigNumber }
@@ -256,6 +289,12 @@ export class ITransmuterBuffer extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    flushToAmo(
+      underlyingToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     getAvailableFlow(
       underlyingToken: string,
       overrides?: CallOverrides
@@ -292,6 +331,18 @@ export class ITransmuterBuffer extends BaseContract {
 
     setAlchemist(
       alchemist: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setAmo(
+      underlyingToken: string,
+      amo: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    setDivertToAmo(
+      underlyingToken: string,
+      divert: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -352,6 +403,12 @@ export class ITransmuterBuffer extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  flushToAmo(
+    underlyingToken: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   getAvailableFlow(
     underlyingToken: string,
     overrides?: CallOverrides
@@ -388,6 +445,18 @@ export class ITransmuterBuffer extends BaseContract {
 
   setAlchemist(
     alchemist: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setAmo(
+    underlyingToken: string,
+    amo: string,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  setDivertToAmo(
+    underlyingToken: string,
+    divert: boolean,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -443,6 +512,12 @@ export class ITransmuterBuffer extends BaseContract {
 
     exchange(underlyingToken: string, overrides?: CallOverrides): Promise<void>;
 
+    flushToAmo(
+      underlyingToken: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
     getAvailableFlow(
       underlyingToken: string,
       overrides?: CallOverrides
@@ -476,6 +551,18 @@ export class ITransmuterBuffer extends BaseContract {
     ): Promise<void>;
 
     setAlchemist(alchemist: string, overrides?: CallOverrides): Promise<void>;
+
+    setAmo(
+      underlyingToken: string,
+      amo: string,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    setDivertToAmo(
+      underlyingToken: string,
+      divert: boolean,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setFlowRate(
       underlyingToken: string,
@@ -548,6 +635,38 @@ export class ITransmuterBuffer extends BaseContract {
       alchemist?: null
     ): TypedEventFilter<[string], { alchemist: string }>;
 
+    "SetAmo(address,address)"(
+      underlyingToken?: null,
+      amo?: null
+    ): TypedEventFilter<
+      [string, string],
+      { underlyingToken: string; amo: string }
+    >;
+
+    SetAmo(
+      underlyingToken?: null,
+      amo?: null
+    ): TypedEventFilter<
+      [string, string],
+      { underlyingToken: string; amo: string }
+    >;
+
+    "SetDivertToAmo(address,bool)"(
+      underlyingToken?: null,
+      divert?: null
+    ): TypedEventFilter<
+      [string, boolean],
+      { underlyingToken: string; divert: boolean }
+    >;
+
+    SetDivertToAmo(
+      underlyingToken?: null,
+      divert?: null
+    ): TypedEventFilter<
+      [string, boolean],
+      { underlyingToken: string; divert: boolean }
+    >;
+
     "SetFlowRate(address,uint256)"(
       underlyingToken?: null,
       flowRate?: null
@@ -607,6 +726,12 @@ export class ITransmuterBuffer extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    flushToAmo(
+      underlyingToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     getAvailableFlow(
       underlyingToken: string,
       overrides?: CallOverrides
@@ -643,6 +768,18 @@ export class ITransmuterBuffer extends BaseContract {
 
     setAlchemist(
       alchemist: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setAmo(
+      underlyingToken: string,
+      amo: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    setDivertToAmo(
+      underlyingToken: string,
+      divert: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -704,6 +841,12 @@ export class ITransmuterBuffer extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    flushToAmo(
+      underlyingToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     getAvailableFlow(
       underlyingToken: string,
       overrides?: CallOverrides
@@ -740,6 +883,18 @@ export class ITransmuterBuffer extends BaseContract {
 
     setAlchemist(
       alchemist: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setAmo(
+      underlyingToken: string,
+      amo: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    setDivertToAmo(
+      underlyingToken: string,
+      divert: boolean,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

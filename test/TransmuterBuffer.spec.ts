@@ -71,22 +71,22 @@ async function tokenAdapterFixture(): Promise<TokenAdapterFixture> {
   )) as TestERC20;
 
   const yieldTokenFactory = await ethers.getContractFactory("TestYieldToken");
-  const yieldToken = await yieldTokenFactory.deploy(underlyingToken.address);
-  const yieldToken_b = await yieldTokenFactory.deploy(underlyingToken.address);
-  const yieldToken6 = await yieldTokenFactory.deploy(underlyingToken6.address);
+  const yieldToken = (await yieldTokenFactory.deploy(underlyingToken.address)) as TestYieldToken;
+  const yieldToken_b = (await yieldTokenFactory.deploy(underlyingToken.address)) as TestYieldToken;
+  const yieldToken6 = (await yieldTokenFactory.deploy(underlyingToken6.address)) as TestYieldToken;
 
   const yieldTokenAdapterFactory = await ethers.getContractFactory(
     "TestYieldTokenAdapter"
   );
-  const tokenAdapter = await yieldTokenAdapterFactory.deploy(
+  const tokenAdapter = (await yieldTokenAdapterFactory.deploy(
     yieldToken.address
-  );
-  const tokenAdapter_b = await yieldTokenAdapterFactory.deploy(
+  )) as TestYieldTokenAdapter;
+  const tokenAdapter_b = (await yieldTokenAdapterFactory.deploy(
     yieldToken_b.address
-  );
-  const tokenAdapter6 = await yieldTokenAdapterFactory.deploy(
+  )) as TestYieldTokenAdapter;
+  const tokenAdapter6 = (await yieldTokenAdapterFactory.deploy(
     yieldToken6.address
-  );
+  )) as TestYieldTokenAdapter;
 
   return {
     underlyingToken,
@@ -511,6 +511,21 @@ describe("Transmuter Buffer", () => {
       const exchangedAmtDai = await transmuterDai.totalExchanged();
       expect(exchangedAmtDai).equal(parseEther("10"));
     });
+
+    it("flushes funds to the amo if the flag is set", async () => {
+      const receiverFactory = await ethers.getContractFactory("TestErc20Receiver");
+      const receiver = await receiverFactory.deploy();
+      const startBal = await underlyingToken.balanceOf(receiver.address);
+      await transmuterBuffer.connect(admin).setAmo(underlyingToken.address, receiver.address);
+      await transmuterBuffer.connect(admin).setDivertToAmo(underlyingToken.address, true);
+      await alchemist
+        .connect(minter)
+        .liquidate(yieldToken.address, mintAmt, mintAmt);
+      const exchangedAmtDai = await transmuterDai.totalExchanged();
+      expect(exchangedAmtDai).equal(0);
+      const endBal = await underlyingToken.balanceOf(receiver.address);
+      expect(endBal.sub(startBal)).equal(mintAmt)
+    })
   });
 
   describe("getTotalUnderlyingBuffered()", () => {
@@ -638,34 +653,40 @@ describe("Transmuter Buffer", () => {
     });
 
     it("reverts if there is not enough flow available", async () => {
+      const minAmtDai1 = liqAmtDai1.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken.address, liqAmtDai1, liqAmtDai1);
+        .liquidate(yieldToken.address, liqAmtDai1, minAmtDai1);
+      const minAmtUsdc = liqAmtUsdc.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken6.address, liqAmtUsdc, liqAmtUsdc);
+        .liquidate(yieldToken6.address, liqAmtUsdc, minAmtUsdc);
+      const minAmtDai2 = liqAmtDai2.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken_b.address, liqAmtDai2, liqAmtDai2);
+        .liquidate(yieldToken_b.address, liqAmtDai2, minAmtDai2);
       await expect(
         transmuterUsdc.connect(minter).claim(liqAmtUsdc, minter.address)
       ).revertedWith("IllegalArgument()");
     });
 
     it("reverts if there is not enough buffered collateral available", async () => {
+      const minAmtDai1 = liqAmtDai1.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken.address, liqAmtDai1, liqAmtDai1);
+        .liquidate(yieldToken.address, liqAmtDai1, minAmtDai1);
+      const minAmtUsdc = liqAmtUsdc.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken6.address, liqAmtUsdc, liqAmtUsdc);
+        .liquidate(yieldToken6.address, liqAmtUsdc, minAmtUsdc);
+      const minAmtDai2 = liqAmtDai2.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken_b.address, liqAmtDai2, liqAmtDai2);
+        .liquidate(yieldToken_b.address, liqAmtDai2, minAmtDai2);
       await increaseTime(waffle.provider, 1000);
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken6.address, liqAmtUsdc, liqAmtUsdc);
+        .liquidate(yieldToken6.address, liqAmtUsdc, minAmtUsdc);
       await expect(
         transmuterUsdc.connect(minter).claim(liqAmtUsdc.mul(10), minter.address)
       ).revertedWith("IllegalArgument()");
@@ -681,15 +702,18 @@ describe("Transmuter Buffer", () => {
         );
 
       await increaseTime(waffle.provider, 10);
+      const minAmtDai1 = liqAmtDai1.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken.address, liqAmtDai1, liqAmtDai1);
+        .liquidate(yieldToken.address, liqAmtDai1, minAmtDai1);
+      const minAmtUsdc = liqAmtUsdc.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken6.address, liqAmtUsdc, liqAmtUsdc);
+        .liquidate(yieldToken6.address, liqAmtUsdc, minAmtUsdc);
+      const minAmtDai2 = liqAmtDai2.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken_b.address, liqAmtDai2, liqAmtDai2);
+        .liquidate(yieldToken_b.address, liqAmtDai2, minAmtDai2);
 
       const bal = await underlyingToken.balanceOf(transmuterBuffer.address);
       const exchanged = await transmuterBuffer.currentExchanged(
@@ -725,15 +749,18 @@ describe("Transmuter Buffer", () => {
         );
 
       await increaseTime(waffle.provider, 1000);
+      const minAmtDai1 = liqAmtDai1.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken.address, liqAmtDai1, liqAmtDai1);
+        .liquidate(yieldToken.address, liqAmtDai1, minAmtDai1);
+      const minAmtUsdc = liqAmtUsdc.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken6.address, liqAmtUsdc, liqAmtUsdc);
+        .liquidate(yieldToken6.address, liqAmtUsdc, minAmtUsdc);
+      const minAmtDai2 = liqAmtDai2.mul('999999999999999999').div(parseEther('1'))
       await alchemist
         .connect(minter)
-        .liquidate(yieldToken_b.address, liqAmtDai2, liqAmtDai2);
+        .liquidate(yieldToken_b.address, liqAmtDai2, minAmtDai2);
 
       const balBefore = await underlyingToken.balanceOf(
         transmuterBuffer.address
