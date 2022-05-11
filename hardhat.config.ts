@@ -12,7 +12,7 @@ import "@openzeppelin/hardhat-upgrades";
 import "hardhat-deploy";
 import "hardhat-contract-sizer";
 
-import "./tasks/testnet";
+// import "./tasks/testnet";
 
 dotenv.config();
 
