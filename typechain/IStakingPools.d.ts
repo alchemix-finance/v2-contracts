@@ -232,8 +232,14 @@ export class IStakingPools extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    claim(
+    "claim(uint256)"(
       _poolId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
+    "claim(uint256,uint256)"(
+      _poolId: BigNumberish,
+      _claimAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -325,8 +331,14 @@ export class IStakingPools extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  claim(
+  "claim(uint256)"(
     _poolId: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
+  "claim(uint256,uint256)"(
+    _poolId: BigNumberish,
+    _claimAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -416,7 +428,16 @@ export class IStakingPools extends BaseContract {
   callStatic: {
     acceptGovernance(overrides?: CallOverrides): Promise<void>;
 
-    claim(_poolId: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    "claim(uint256)"(
+      _poolId: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    "claim(uint256,uint256)"(
+      _poolId: BigNumberish,
+      _claimAmount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     createPool(_token: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -503,8 +524,14 @@ export class IStakingPools extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    claim(
+    "claim(uint256)"(
       _poolId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    "claim(uint256,uint256)"(
+      _poolId: BigNumberish,
+      _claimAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -597,8 +624,14 @@ export class IStakingPools extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    claim(
+    "claim(uint256)"(
       _poolId: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    "claim(uint256,uint256)"(
+      _poolId: BigNumberish,
+      _claimAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

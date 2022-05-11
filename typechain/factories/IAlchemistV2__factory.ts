@@ -677,6 +677,25 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "rewardToken",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "SweepTokens",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         internalType: "address",
         name: "yieldToken",
@@ -2002,6 +2021,24 @@ const _abi = [
       },
     ],
     name: "snap",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "rewardToken",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "sweepTokens",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

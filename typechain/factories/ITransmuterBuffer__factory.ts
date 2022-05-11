@@ -59,6 +59,44 @@ const _abi = [
       },
       {
         indexed: false,
+        internalType: "address",
+        name: "amo",
+        type: "address",
+      },
+    ],
+    name: "SetAmo",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "bool",
+        name: "divert",
+        type: "bool",
+      },
+    ],
+    name: "SetDivertToAmo",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        indexed: false,
         internalType: "uint256",
         name: "flowRate",
         type: "uint256",
@@ -139,6 +177,24 @@ const _abi = [
       },
     ],
     name: "exchange",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "flushToAmo",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -270,6 +326,42 @@ const _abi = [
       },
     ],
     name: "setAlchemist",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "amo",
+        type: "address",
+      },
+    ],
+    name: "setAmo",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "underlyingToken",
+        type: "address",
+      },
+      {
+        internalType: "bool",
+        name: "divert",
+        type: "bool",
+      },
+    ],
+    name: "setDivertToAmo",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

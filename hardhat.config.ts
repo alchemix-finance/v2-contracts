@@ -12,7 +12,7 @@ import "@openzeppelin/hardhat-upgrades";
 import "hardhat-deploy";
 import "hardhat-contract-sizer";
 
-import "./tasks/testnet";
+// import "./tasks/testnet";
 
 dotenv.config();
 
@@ -90,6 +90,22 @@ const config = {
         {
           privateKey: generateRandomHex(64),
           balance: "2000000000000000000000000",
+        },
+        {
+          privateKey: generateRandomHex(64),
+          balance: "3000000000000000000000000",
+        },
+        {
+          privateKey: generateRandomHex(64),
+          balance: "3000000000000000000000000",
+        },
+        {
+          privateKey: generateRandomHex(64),
+          balance: "3000000000000000000000000",
+        },
+        {
+          privateKey: generateRandomHex(64),
+          balance: "3000000000000000000000000",
         },
         {
           privateKey: generateRandomHex(64),

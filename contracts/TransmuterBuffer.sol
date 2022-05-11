@@ -17,6 +17,7 @@ import "./libraries/FixedPointMath.sol";
 import "./libraries/LiquidityMath.sol";
 import "./libraries/SafeCast.sol";
 import "./libraries/TokenUtils.sol";
+import "./interfaces/IERC20TokenReceiver.sol";
 
 /// @title  ITransmuterBuffer
 /// @author Alchemix Finance
@@ -33,7 +34,7 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
     bytes32 public constant KEEPER = keccak256("KEEPER");
 
     /// @inheritdoc ITransmuterBuffer
-    string public constant override version = "2.1.0";
+    string public constant override version = "2.2.0";
 
     /// @notice The alchemist address.
     address public alchemist;
@@ -67,6 +68,12 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
 
     /// @dev A mapping of addresses to denote permissioned sources of funds
     mapping(address => bool) public sources;
+
+    /// @dev A mapping of addresses to their respective AMOs.
+    mapping(address => address) public amos;
+
+    /// @dev A mapping of underlying tokens to divert to the AMO.
+    mapping(address => bool) public divertToAmo;
 
     constructor() initializer {}
 
@@ -241,6 +248,18 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
     }
 
     /// @inheritdoc ITransmuterBuffer
+    function setAmo(address underlyingToken, address amo) external override onlyAdmin {
+        amos[underlyingToken] = amo;
+        emit SetAmo(underlyingToken, amo);
+    }
+
+    /// @inheritdoc ITransmuterBuffer
+    function setDivertToAmo(address underlyingToken, bool divert) external override onlyAdmin {
+        divertToAmo[underlyingToken] = divert;
+        emit SetDivertToAmo(underlyingToken, divert);
+    }
+
+    /// @inheritdoc ITransmuterBuffer
     function registerAsset(
         address underlyingToken,
         address _transmuter
@@ -284,25 +303,38 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
         override
         onlySource
     {
-        _updateFlow(underlyingToken);
-
-        // total amount of collateral that the buffer controls in the alchemist
-        uint256 localBalance = TokenUtils.safeBalanceOf(underlyingToken, address(this));
-
-        // if there is not enough locally buffered collateral to meet the flow rate, exchange only the exchanged amount
-        if (localBalance < flowAvailable[underlyingToken]) {
-            currentExchanged[underlyingToken] += amount;
-            ITransmuterV2(transmuter[underlyingToken]).exchange(amount);
+        if (divertToAmo[underlyingToken]) {
+            _flushToAmo(underlyingToken, amount);
         } else {
-            uint256 exchangeable = flowAvailable[underlyingToken] - currentExchanged[underlyingToken];
-            currentExchanged[underlyingToken] += exchangeable;
-            ITransmuterV2(transmuter[underlyingToken]).exchange(exchangeable);
+            _updateFlow(underlyingToken);
+
+            // total amount of collateral that the buffer controls in the alchemist
+            uint256 localBalance = TokenUtils.safeBalanceOf(underlyingToken, address(this));
+
+            // if there is not enough locally buffered collateral to meet the flow rate, exchange only the exchanged amount
+            if (localBalance < flowAvailable[underlyingToken]) {
+                currentExchanged[underlyingToken] += amount;
+                ITransmuterV2(transmuter[underlyingToken]).exchange(amount);
+            } else {
+                uint256 exchangeable = flowAvailable[underlyingToken] - currentExchanged[underlyingToken];
+                currentExchanged[underlyingToken] += exchangeable;
+                ITransmuterV2(transmuter[underlyingToken]).exchange(exchangeable);
+            }
         }
     }
 
     /// @inheritdoc ITransmuterBuffer
     function exchange(address underlyingToken) external override onlyKeeper {
         _exchange(underlyingToken);
+    }
+
+    /// @inheritdoc ITransmuterBuffer
+    function flushToAmo(address underlyingToken, uint256 amount) external override onlyKeeper {
+        if (divertToAmo[underlyingToken]) {
+            _flushToAmo(underlyingToken, amount);
+        } else {
+            revert IllegalState();
+        }
     }
 
     /// @inheritdoc ITransmuterBuffer
@@ -525,5 +557,14 @@ contract TransmuterBuffer is ITransmuterBuffer, AccessControl, Initializable {
             currentExchanged[underlyingToken] += exchangeDelta;
             ITransmuterV2(transmuter[underlyingToken]).exchange(exchangeDelta);
         }
+    }
+
+    /// @notice Flush funds to the amo.
+    ///
+    /// @param underlyingToken The underlyingToken to flush.
+    /// @param amount          The amount to flush.
+    function _flushToAmo(address underlyingToken, uint256 amount) internal {
+        TokenUtils.safeTransfer(underlyingToken, amos[underlyingToken], amount);
+        IERC20TokenReceiver(amos[underlyingToken]).onERC20Received(underlyingToken, amount);
     }
 }

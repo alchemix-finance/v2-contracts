@@ -537,6 +537,25 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: true,
+        internalType: "address",
+        name: "rewardToken",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+    ],
+    name: "SweepTokens",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: false,
         internalType: "address",
         name: "yieldToken",

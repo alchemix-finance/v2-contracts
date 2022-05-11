@@ -76,6 +76,7 @@ interface IAlchemistV2Interface extends ethers.utils.Interface {
     "setUnderlyingTokenEnabled(address,bool)": FunctionFragment;
     "setYieldTokenEnabled(address,bool)": FunctionFragment;
     "snap(address)": FunctionFragment;
+    "sweepTokens(address,uint256)": FunctionFragment;
     "transmuter()": FunctionFragment;
     "version()": FunctionFragment;
     "whitelist()": FunctionFragment;
@@ -317,6 +318,10 @@ interface IAlchemistV2Interface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "snap", values: [string]): string;
   encodeFunctionData(
+    functionFragment: "sweepTokens",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
     functionFragment: "transmuter",
     values?: undefined
   ): string;
@@ -509,6 +514,10 @@ interface IAlchemistV2Interface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "snap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "sweepTokens",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "transmuter", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "version", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "whitelist", data: BytesLike): Result;
@@ -556,6 +565,7 @@ interface IAlchemistV2Interface extends ethers.utils.Interface {
     "RepayLimitUpdated(address,uint256,uint256)": EventFragment;
     "SentinelSet(address,bool)": EventFragment;
     "Snap(address,uint256)": EventFragment;
+    "SweepTokens(address,uint256)": EventFragment;
     "TokenAdapterUpdated(address,address)": EventFragment;
     "TransmuterUpdated(address)": EventFragment;
     "UnderlyingTokenEnabled(address,bool)": EventFragment;
@@ -592,6 +602,7 @@ interface IAlchemistV2Interface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RepayLimitUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SentinelSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Snap"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SweepTokens"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokenAdapterUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransmuterUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UnderlyingTokenEnabled"): EventFragment;
@@ -741,6 +752,10 @@ export type SentinelSetEvent = TypedEvent<
 
 export type SnapEvent = TypedEvent<
   [string, BigNumber] & { yieldToken: string; expectedValue: BigNumber }
+>;
+
+export type SweepTokensEvent = TypedEvent<
+  [string, BigNumber] & { rewardToken: string; amount: BigNumber }
 >;
 
 export type TokenAdapterUpdatedEvent = TypedEvent<
@@ -1240,6 +1255,12 @@ export class IAlchemistV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     transmuter(
       overrides?: CallOverrides
     ): Promise<[string] & { transmuter: string }>;
@@ -1653,6 +1674,12 @@ export class IAlchemistV2 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  sweepTokens(
+    rewardToken: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   transmuter(overrides?: CallOverrides): Promise<string>;
 
   version(overrides?: CallOverrides): Promise<string>;
@@ -2050,6 +2077,12 @@ export class IAlchemistV2 extends BaseContract {
     ): Promise<void>;
 
     snap(yieldToken: string, overrides?: CallOverrides): Promise<void>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     transmuter(overrides?: CallOverrides): Promise<string>;
 
@@ -2496,6 +2529,22 @@ export class IAlchemistV2 extends BaseContract {
       { yieldToken: string; expectedValue: BigNumber }
     >;
 
+    "SweepTokens(address,uint256)"(
+      rewardToken?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { rewardToken: string; amount: BigNumber }
+    >;
+
+    SweepTokens(
+      rewardToken?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { rewardToken: string; amount: BigNumber }
+    >;
+
     "TokenAdapterUpdated(address,address)"(
       yieldToken?: null,
       tokenAdapter?: null
@@ -2880,6 +2929,12 @@ export class IAlchemistV2 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     transmuter(overrides?: CallOverrides): Promise<BigNumber>;
 
     version(overrides?: CallOverrides): Promise<BigNumber>;
@@ -3237,6 +3292,12 @@ export class IAlchemistV2 extends BaseContract {
 
     snap(
       yieldToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

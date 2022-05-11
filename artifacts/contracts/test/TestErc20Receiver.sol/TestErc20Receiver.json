@@ -1,0 +1,34 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "TestErc20Receiver",
+  "sourceName": "contracts/test/TestErc20Receiver.sol",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "underlyingToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "onERC20Received",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b5060aa8061001e6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063bc04f0af14602d575b600080fd5b603c6038366004603e565b5050565b005b60008060408385031215605057600080fd5b82356001600160a01b0381168114606657600080fd5b94602093909301359350505056fea2646970667358221220b29cd3e185532612305d6988105362c25a81d5910e44f2f65ee405e61b789bc864736f6c634300080b0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063bc04f0af14602d575b600080fd5b603c6038366004603e565b5050565b005b60008060408385031215605057600080fd5b82356001600160a01b0381168114606657600080fd5b94602093909301359350505056fea2646970667358221220b29cd3e185532612305d6988105362c25a81d5910e44f2f65ee405e61b789bc864736f6c634300080b0033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

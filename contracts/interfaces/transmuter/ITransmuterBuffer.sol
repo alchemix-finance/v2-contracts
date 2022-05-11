@@ -34,6 +34,18 @@ interface ITransmuterBuffer is IERC20TokenReceiver {
   /// @param alchemist The address of the alchemist.
   event SetAlchemist(address alchemist);
 
+  /// @notice Emitted when the amo is set.
+  ///
+  /// @param underlyingToken The address of the underlying token.
+  /// @param amo             The address of the amo.
+  event SetAmo(address underlyingToken, address amo);
+
+  /// @notice Emitted when the the status of diverting to the amo is set for a given underlying token.
+  ///
+  /// @param underlyingToken The address of the underlying token.
+  /// @param divert          Whether or not to divert funds to the amo.
+  event SetDivertToAmo(address underlyingToken, bool divert);
+
   /// @notice Emitted when an underlying token is registered.
   ///
   /// @param underlyingToken The address of the underlying token.
@@ -110,6 +122,18 @@ interface ITransmuterBuffer is IERC20TokenReceiver {
   /// @param alchemist The new alchemist whose funds we are handling.
   function setAlchemist(address alchemist) external;
 
+  /// @notice Set the address of the amo for a target underlying token.
+  ///
+  /// @param underlyingToken The address of the underlying token to set.
+  /// @param amo The address of the underlying token's new amo.
+  function setAmo(address underlyingToken, address amo) external;
+
+  /// @notice Set whether or not to divert funds to the amo.
+  ///
+  /// @param underlyingToken The address of the underlying token to set.
+  /// @param divert          Whether or not to divert underlying token to the amo.
+  function setDivertToAmo(address underlyingToken, bool divert) external;
+
   /// @notice Refresh the yield-tokens in the TransmuterBuffer.
   ///
   /// This requires a call anytime governance adds a new yield token to the alchemist.
@@ -148,6 +172,12 @@ interface ITransmuterBuffer is IERC20TokenReceiver {
   ///
   /// @param underlyingToken The address of the underlying token to exchange.
   function exchange(address underlyingToken) external;
+
+  /// @notice Flushes funds to the amo.
+  ///
+  /// @param underlyingToken The underlying token to flush.
+  /// @param amount          The amount to flush.
+  function flushToAmo(address underlyingToken, uint256 amount) external;
 
   /// @notice Burns available credit in the alchemist.
   function burnCredit() external;

@@ -51,7 +51,7 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
     uint256 public constant FIXED_POINT_SCALAR = 1e18;
 
     /// @inheritdoc IAlchemistV2Immutables
-    string public constant override version = "2.2.5";
+    string public constant override version = "2.2.6";
 
     /// @inheritdoc IAlchemistV2Immutables
     address public override debtToken;
@@ -511,6 +511,23 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
         emit Snap(yieldToken, expectedValue);
     }
 
+    /// @inheritdoc IAlchemistV2AdminActions
+    function sweepTokens(address rewardToken, uint256 amount) external override lock {
+        _onlyAdmin();
+
+        if (_supportedYieldTokens.contains(rewardToken)) {
+            revert UnsupportedToken(rewardToken);
+        }
+
+        if (_supportedUnderlyingTokens.contains(rewardToken)) {
+            revert UnsupportedToken(rewardToken);
+        }
+
+        TokenUtils.safeTransfer(rewardToken, admin, amount);
+
+        emit SweepTokens(rewardToken, amount);
+    }
+
     /// @inheritdoc IAlchemistV2Actions
     function approveMint(address spender, uint256 amount) external override {
         _onlyWhitelisted();
@@ -821,7 +838,7 @@ contract AlchemistV2 is IAlchemistV2, Initializable, Multicall, Mutex {
         uint256 actualShares = shares > maximumShares ? maximumShares : shares;
 
         // Unwrap the yield tokens that the shares are worth.
-        uint256 amountYieldTokens      = _convertSharesToUnderlyingTokens(yieldToken, actualShares);
+        uint256 amountYieldTokens      = _convertSharesToYieldTokens(yieldToken, actualShares);
         uint256 amountUnderlyingTokens = _unwrap(yieldToken, amountYieldTokens, address(this), minimumAmountOut);
 
         // Again, perform another noop check. It is possible that the amount of underlying tokens that were received by

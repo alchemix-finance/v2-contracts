@@ -26,6 +26,7 @@ import { mineBlocks } from "../utils/helpers";
 interface TokenAdapterFixture {
   underlyingToken: TestERC20;
   underlyingToken6: TestERC20;
+  rewardToken: TestERC20;
   yieldToken: TestYieldToken;
   yieldToken6: TestYieldToken;
   tokenAdapter: TestYieldTokenAdapter;
@@ -49,26 +50,31 @@ async function tokenAdapterFixture(): Promise<TokenAdapterFixture> {
     BigNumber.from(2).pow(255),
     6
   )) as TestERC20;
+  const rewardToken = (await tokenFactory.deploy(
+    BigNumber.from(2).pow(255),
+    6
+  )) as TestERC20;
 
   const yieldTokenFactory = await ethers.getContractFactory("TestYieldToken");
-  const yieldToken = await yieldTokenFactory.deploy(underlyingToken.address);
-  const yieldToken6 = await yieldTokenFactory.deploy(underlyingToken6.address);
+  const yieldToken = (await yieldTokenFactory.deploy(underlyingToken.address)) as TestYieldToken;
+  const yieldToken6 = (await yieldTokenFactory.deploy(underlyingToken6.address)) as TestYieldToken;
 
   const yieldTokenAdapterFactory = await ethers.getContractFactory(
     "TestYieldTokenAdapter"
   );
-  const tokenAdapter = await yieldTokenAdapterFactory.deploy(
+  const tokenAdapter = (await yieldTokenAdapterFactory.deploy(
     yieldToken.address
-  );
-  const tokenAdapter6 = await yieldTokenAdapterFactory.deploy(
+  )) as TestYieldTokenAdapter;
+  const tokenAdapter6 = (await yieldTokenAdapterFactory.deploy(
     yieldToken6.address
-  );
+  )) as TestYieldTokenAdapter;
 
   return {
     underlyingToken,
     underlyingToken6,
     yieldToken,
     yieldToken6,
+    rewardToken,
     tokenAdapter,
     tokenAdapter6,
   };
@@ -91,12 +97,13 @@ async function alchemistFixture([
     underlyingToken6,
     yieldToken,
     yieldToken6,
+    rewardToken,
     tokenAdapter,
     tokenAdapter6,
   } = await tokenAdapterFixture();
 
   const transmuterFactory = await ethers.getContractFactory("TestTransmuter");
-  const transmuter = await transmuterFactory.deploy();
+  const transmuter = (await transmuterFactory.deploy()) as TestTransmuter;
 
   const whitelistFactory = await ethers.getContractFactory("Whitelist");
   const whitelist = (await whitelistFactory
@@ -190,6 +197,7 @@ async function alchemistFixture([
     underlyingToken6,
     yieldToken,
     yieldToken6,
+    rewardToken,
     tokenAdapter,
     tokenAdapter6,
     transmuter,
@@ -207,6 +215,7 @@ describe("AlchemistV2", () => {
   let tokenAdapter: TestYieldTokenAdapter;
   let underlyingToken6: TestERC20;
   let yieldToken6: TestYieldToken;
+  let rewardToken: TestERC20;
   let tokenAdapter6: TestYieldTokenAdapter;
   let transmuter: TestTransmuter;
   let alchemist: AlchemistV2;
@@ -223,6 +232,7 @@ describe("AlchemistV2", () => {
     ({
       underlyingToken,
       yieldToken,
+      rewardToken,
       tokenAdapter,
       debtToken,
       transmuter,
@@ -644,9 +654,9 @@ describe("AlchemistV2", () => {
       const yieldTokenAdapterFactory = await ethers.getContractFactory(
         "TestYieldTokenAdapter"
       );
-      newAdapter = await yieldTokenAdapterFactory.deploy(
+      newAdapter = (await yieldTokenAdapterFactory.deploy(
         yieldToken.address
-      );
+      )) as TestYieldTokenAdapter;
     })
 
     it("reverts if called by anyone but the admin", async () => {
@@ -705,6 +715,40 @@ describe("AlchemistV2", () => {
       ).revertedWith('UnsupportedToken("' + underlyingToken.address + '")');
     });
   });
+
+  describe("sweep", () => {
+    const sweepAmount = parseUnits("10000", "ether");
+
+    beforeEach(async () => {
+      await rewardToken.mint(alchemist.address, sweepAmount);
+      await rewardToken.approve(alchemist.address, sweepAmount);
+    });
+
+    it("emits SweepTokens event", async() => {
+      await expect(
+        alchemist.connect(admin).sweepTokens(rewardToken.address, 100)
+      ).to.emit(alchemist, "SweepTokens")
+      .withArgs(rewardToken.address, 100);
+    });
+
+    it("reverts if the token is an underlyingToken", async() => {
+      await expect(
+        alchemist.connect(admin).sweepTokens(underlyingToken.address, 100)
+      ).revertedWith('UnsupportedToken("' + underlyingToken.address + '")');
+    });
+
+    it("reverts if token is a yield token", async() => {
+      await expect(
+        alchemist.connect(admin).sweepTokens(yieldToken.address, 100)
+      ).revertedWith('UnsupportedToken("' + yieldToken.address + '")');
+    });
+
+    it("reverts if caller is not the admin", async() => {
+      await expect(
+        alchemist.connect(sentinel).sweepTokens(yieldToken.address, 100)
+      ).revertedWith('Unauthorized()');
+    });    
+  })
 
   describe("approveMint", () => {
     it("sets the mint allowance", async () => {
@@ -3035,8 +3079,8 @@ describe("AlchemistV2", () => {
         wallet.address,
         yieldToken.address
       );
-
-      await alchemist.liquidate(yieldToken.address, liquidateAmount, liquidateAmount);
+      const minimumAmountOut = liquidateAmount.mul('999999999999999999').div(parseEther('1'))
+      await alchemist.liquidate(yieldToken.address, liquidateAmount, minimumAmountOut);
 
       const { shares: endingShares } = await alchemist.positions(
         wallet.address,
@@ -3125,7 +3169,8 @@ describe("AlchemistV2", () => {
       const tokenBefore6 = await alchemist.getYieldTokenParameters(
         yieldToken6.address
       );
-      await alchemist.liquidate(yieldToken.address, liquidateAmount, liquidateAmount);
+      const minimumAmountOut = liquidateAmount.mul('999999999999999999').div(parseEther('1'))
+      await alchemist.liquidate(yieldToken.address, liquidateAmount, minimumAmountOut);
       const tokenAfter = await alchemist.getYieldTokenParameters(
         yieldToken.address
       );
