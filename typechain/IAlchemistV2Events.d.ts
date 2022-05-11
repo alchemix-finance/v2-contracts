@@ -46,6 +46,7 @@ interface IAlchemistV2EventsInterface extends ethers.utils.Interface {
     "RepayLimitUpdated(address,uint256,uint256)": EventFragment;
     "SentinelSet(address,bool)": EventFragment;
     "Snap(address,uint256)": EventFragment;
+    "SweepTokens(address,uint256)": EventFragment;
     "TokenAdapterUpdated(address,address)": EventFragment;
     "TransmuterUpdated(address)": EventFragment;
     "UnderlyingTokenEnabled(address,bool)": EventFragment;
@@ -82,6 +83,7 @@ interface IAlchemistV2EventsInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "RepayLimitUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SentinelSet"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Snap"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "SweepTokens"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TokenAdapterUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransmuterUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UnderlyingTokenEnabled"): EventFragment;
@@ -231,6 +233,10 @@ export type SentinelSetEvent = TypedEvent<
 
 export type SnapEvent = TypedEvent<
   [string, BigNumber] & { yieldToken: string; expectedValue: BigNumber }
+>;
+
+export type SweepTokensEvent = TypedEvent<
+  [string, BigNumber] & { rewardToken: string; amount: BigNumber }
 >;
 
 export type TokenAdapterUpdatedEvent = TypedEvent<
@@ -702,6 +708,22 @@ export class IAlchemistV2Events extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber],
       { yieldToken: string; expectedValue: BigNumber }
+    >;
+
+    "SweepTokens(address,uint256)"(
+      rewardToken?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { rewardToken: string; amount: BigNumber }
+    >;
+
+    SweepTokens(
+      rewardToken?: string | null,
+      amount?: null
+    ): TypedEventFilter<
+      [string, BigNumber],
+      { rewardToken: string; amount: BigNumber }
     >;
 
     "TokenAdapterUpdated(address,address)"(

@@ -30,6 +30,24 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: "uint256",
+        name: "_poolId",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_claimAmount",
+        type: "uint256",
+      },
+    ],
+    name: "claim",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "address",
         name: "_token",
         type: "address",

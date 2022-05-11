@@ -42,6 +42,7 @@ interface IAlchemistV2AdminActionsInterface extends ethers.utils.Interface {
     "setUnderlyingTokenEnabled(address,bool)": FunctionFragment;
     "setYieldTokenEnabled(address,bool)": FunctionFragment;
     "snap(address)": FunctionFragment;
+    "sweepTokens(address,uint256)": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -156,6 +157,10 @@ interface IAlchemistV2AdminActionsInterface extends ethers.utils.Interface {
     values: [string, boolean]
   ): string;
   encodeFunctionData(functionFragment: "snap", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "sweepTokens",
+    values: [string, BigNumberish]
+  ): string;
 
   decodeFunctionResult(
     functionFragment: "acceptAdmin",
@@ -232,6 +237,10 @@ interface IAlchemistV2AdminActionsInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "snap", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "sweepTokens",
+    data: BytesLike
+  ): Result;
 
   events: {};
 }
@@ -421,6 +430,12 @@ export class IAlchemistV2AdminActions extends BaseContract {
       yieldToken: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   acceptAdmin(
@@ -565,6 +580,12 @@ export class IAlchemistV2AdminActions extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  sweepTokens(
+    rewardToken: string,
+    amount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     acceptAdmin(overrides?: CallOverrides): Promise<void>;
 
@@ -696,6 +717,12 @@ export class IAlchemistV2AdminActions extends BaseContract {
     ): Promise<void>;
 
     snap(yieldToken: string, overrides?: CallOverrides): Promise<void>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {};
@@ -842,6 +869,12 @@ export class IAlchemistV2AdminActions extends BaseContract {
       yieldToken: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -984,6 +1017,12 @@ export class IAlchemistV2AdminActions extends BaseContract {
 
     snap(
       yieldToken: string,
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    sweepTokens(
+      rewardToken: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
