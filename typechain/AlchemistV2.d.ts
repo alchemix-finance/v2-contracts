@@ -568,9 +568,9 @@ interface AlchemistV2Interface extends ethers.utils.Interface {
     "CreditUnlockRateUpdated(address,uint256)": EventFragment;
     "Deposit(address,address,uint256,address)": EventFragment;
     "Donate(address,address,uint256)": EventFragment;
-    "Harvest(address,uint256,uint256)": EventFragment;
+    "Harvest(address,uint256,uint256,uint256)": EventFragment;
     "KeeperSet(address,bool)": EventFragment;
-    "Liquidate(address,address,address,uint256)": EventFragment;
+    "Liquidate(address,address,address,uint256,uint256)": EventFragment;
     "LiquidationLimitUpdated(address,uint256,uint256)": EventFragment;
     "MaximumExpectedValueUpdated(address,uint256)": EventFragment;
     "MaximumLossUpdated(address,uint256)": EventFragment;
@@ -580,7 +580,7 @@ interface AlchemistV2Interface extends ethers.utils.Interface {
     "PendingAdminUpdated(address)": EventFragment;
     "ProtocolFeeReceiverUpdated(address)": EventFragment;
     "ProtocolFeeUpdated(uint256)": EventFragment;
-    "Repay(address,address,uint256,address)": EventFragment;
+    "Repay(address,address,uint256,address,uint256)": EventFragment;
     "RepayLimitUpdated(address,uint256,uint256)": EventFragment;
     "SentinelSet(address,bool)": EventFragment;
     "Snap(address,uint256)": EventFragment;
@@ -684,10 +684,11 @@ export type DonateEvent = TypedEvent<
 >;
 
 export type HarvestEvent = TypedEvent<
-  [string, BigNumber, BigNumber] & {
+  [string, BigNumber, BigNumber, BigNumber] & {
     yieldToken: string;
     minimumAmountOut: BigNumber;
     totalHarvested: BigNumber;
+    credit: BigNumber;
   }
 >;
 
@@ -696,11 +697,12 @@ export type KeeperSetEvent = TypedEvent<
 >;
 
 export type LiquidateEvent = TypedEvent<
-  [string, string, string, BigNumber] & {
+  [string, string, string, BigNumber, BigNumber] & {
     owner: string;
     yieldToken: string;
     underlyingToken: string;
     shares: BigNumber;
+    credit: BigNumber;
   }
 >;
 
@@ -749,11 +751,12 @@ export type ProtocolFeeUpdatedEvent = TypedEvent<
 >;
 
 export type RepayEvent = TypedEvent<
-  [string, string, BigNumber, string] & {
+  [string, string, BigNumber, string, BigNumber] & {
     sender: string;
     underlyingToken: string;
     amount: BigNumber;
     recipient: string;
+    credit: BigNumber;
   }
 >;
 
@@ -2256,29 +2259,33 @@ export class AlchemistV2 extends BaseContract {
       { sender: string; yieldToken: string; amount: BigNumber }
     >;
 
-    "Harvest(address,uint256,uint256)"(
+    "Harvest(address,uint256,uint256,uint256)"(
       yieldToken?: string | null,
       minimumAmountOut?: null,
-      totalHarvested?: null
+      totalHarvested?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
+      [string, BigNumber, BigNumber, BigNumber],
       {
         yieldToken: string;
         minimumAmountOut: BigNumber;
         totalHarvested: BigNumber;
+        credit: BigNumber;
       }
     >;
 
     Harvest(
       yieldToken?: string | null,
       minimumAmountOut?: null,
-      totalHarvested?: null
+      totalHarvested?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
+      [string, BigNumber, BigNumber, BigNumber],
       {
         yieldToken: string;
         minimumAmountOut: BigNumber;
         totalHarvested: BigNumber;
+        credit: BigNumber;
       }
     >;
 
@@ -2292,18 +2299,20 @@ export class AlchemistV2 extends BaseContract {
       flag?: null
     ): TypedEventFilter<[string, boolean], { sentinel: string; flag: boolean }>;
 
-    "Liquidate(address,address,address,uint256)"(
+    "Liquidate(address,address,address,uint256,uint256)"(
       owner?: string | null,
       yieldToken?: string | null,
       underlyingToken?: string | null,
-      shares?: null
+      shares?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, string, string, BigNumber],
+      [string, string, string, BigNumber, BigNumber],
       {
         owner: string;
         yieldToken: string;
         underlyingToken: string;
         shares: BigNumber;
+        credit: BigNumber;
       }
     >;
 
@@ -2311,14 +2320,16 @@ export class AlchemistV2 extends BaseContract {
       owner?: string | null,
       yieldToken?: string | null,
       underlyingToken?: string | null,
-      shares?: null
+      shares?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, string, string, BigNumber],
+      [string, string, string, BigNumber, BigNumber],
       {
         owner: string;
         yieldToken: string;
         underlyingToken: string;
         shares: BigNumber;
+        credit: BigNumber;
       }
     >;
 
@@ -2438,18 +2449,20 @@ export class AlchemistV2 extends BaseContract {
       protocolFee?: null
     ): TypedEventFilter<[BigNumber], { protocolFee: BigNumber }>;
 
-    "Repay(address,address,uint256,address)"(
+    "Repay(address,address,uint256,address,uint256)"(
       sender?: string | null,
       underlyingToken?: string | null,
       amount?: null,
-      recipient?: null
+      recipient?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, string, BigNumber, string],
+      [string, string, BigNumber, string, BigNumber],
       {
         sender: string;
         underlyingToken: string;
         amount: BigNumber;
         recipient: string;
+        credit: BigNumber;
       }
     >;
 
@@ -2457,14 +2470,16 @@ export class AlchemistV2 extends BaseContract {
       sender?: string | null,
       underlyingToken?: string | null,
       amount?: null,
-      recipient?: null
+      recipient?: null,
+      credit?: null
     ): TypedEventFilter<
-      [string, string, BigNumber, string],
+      [string, string, BigNumber, string, BigNumber],
       {
         sender: string;
         underlyingToken: string;
         amount: BigNumber;
         recipient: string;
+        credit: BigNumber;
       }
     >;
 

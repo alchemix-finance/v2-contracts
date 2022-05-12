@@ -943,7 +943,7 @@ describe("AlchemistV2", () => {
       const minAmtOut = profit.mul(depositAmount).div(totalSupply).mul(1).div(10000); // 1bps slippage allowed
       await expect(alchemist.connect(admin).harvest(yieldToken.address, minAmtOut))
         .emit(alchemist, "Harvest")
-        .withArgs(yieldToken.address, minAmtOut, "99999999999999999999");
+        .withArgs(yieldToken.address, minAmtOut, "99999999999999999999", "90000000000000000000");
     });
 
     it("reverts when harvestable balance is zero", async () => {
@@ -3003,7 +3003,8 @@ describe("AlchemistV2", () => {
           wallet.address,
           underlyingToken.address,
           repayAmount,
-          wallet.address
+          wallet.address,
+          repayAmount
         );
     });
 
@@ -3100,7 +3101,7 @@ describe("AlchemistV2", () => {
     it("emits a Liquidate event", async () => {
       await expect(alchemist.liquidate(yieldToken.address, liquidateAmount, liquidateAmount))
         .to.emit(alchemist, "Liquidate")
-        .withArgs(wallet.address, yieldToken.address, underlyingToken.address, liquidateAmount);
+        .withArgs(wallet.address, yieldToken.address, underlyingToken.address, liquidateAmount, liquidateAmount);
     });
 
     it("caps liquidation amount to account debt", async () => {

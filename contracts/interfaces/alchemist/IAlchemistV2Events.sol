@@ -181,7 +181,8 @@ interface IAlchemistV2Events {
     /// @param underlyingToken The address of the underlying token that was used to repay debt.
     /// @param amount          The amount of the underlying token that was used to repay debt.
     /// @param recipient       The address that received credit for the repaid tokens.
-    event Repay(address indexed sender, address indexed underlyingToken, uint256 amount, address recipient);
+    /// @param credit          The amount of debt that was paid-off to the account owned by owner.
+    event Repay(address indexed sender, address indexed underlyingToken, uint256 amount, address recipient, uint256 credit);
 
     /// @notice Emitted when `sender` liquidates `share` shares of `yieldToken`.
     ///
@@ -189,7 +190,8 @@ interface IAlchemistV2Events {
     /// @param yieldToken      The address of the yield token.
     /// @param underlyingToken The address of the underlying token.
     /// @param shares          The amount of the shares of `yieldToken` that were liquidated.
-    event Liquidate(address indexed owner, address indexed yieldToken, address indexed underlyingToken, uint256 shares);
+    /// @param credit          The amount of debt that was paid-off to the account owned by owner.
+    event Liquidate(address indexed owner, address indexed yieldToken, address indexed underlyingToken, uint256 shares, uint256 credit);
 
     /// @notice Emitted when `sender` burns `amount` debt tokens to grant credit to users who have deposited `yieldToken`.
     ///
@@ -200,8 +202,9 @@ interface IAlchemistV2Events {
 
     /// @notice Emitted when `yieldToken` is harvested.
     ///
-    /// @param yieldToken     The address of the yield token that was harvested.
-    /// @param minimumAmountOut    The maximum amount of loss that is acceptable when unwrapping the underlying tokens into yield tokens, measured in basis points.
-    /// @param totalHarvested The total amount of underlying tokens harvested.
-    event Harvest(address indexed yieldToken, uint256 minimumAmountOut, uint256 totalHarvested);
+    /// @param yieldToken       The address of the yield token that was harvested.
+    /// @param minimumAmountOut The maximum amount of loss that is acceptable when unwrapping the underlying tokens into yield tokens, measured in basis points.
+    /// @param totalHarvested   The total amount of underlying tokens harvested.
+    /// @param credit           The total amount of debt repaid to depositors of `yieldToken`.
+    event Harvest(address indexed yieldToken, uint256 minimumAmountOut, uint256 totalHarvested, uint256 credit);
 }

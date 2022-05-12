@@ -218,6 +218,12 @@
           "internalType": "uint256",
           "name": "totalHarvested",
           "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "credit",
+          "type": "uint256"
         }
       ],
       "name": "Harvest",
@@ -267,6 +273,12 @@
           "indexed": false,
           "internalType": "uint256",
           "name": "shares",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "credit",
           "type": "uint256"
         }
       ],
@@ -458,6 +470,12 @@
           "internalType": "address",
           "name": "recipient",
           "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "credit",
+          "type": "uint256"
         }
       ],
       "name": "Repay",
