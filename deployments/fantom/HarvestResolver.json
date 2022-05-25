@@ -1,0 +1,836 @@
+{
+  "address": "0x443d61f3E9F33422b4583632b37047bDb1f0f4e8",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "HarvestJobDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "IllegalArgument",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Unauthorized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "YieldTokenDisabled",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        }
+      ],
+      "name": "RecordHarvest",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        }
+      ],
+      "name": "RemoveHarvestJob",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "alchemist",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "minimumHarvestAmount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "minimumDelay",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "slippageBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "SetHarvestJob",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "harvester",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "status",
+          "type": "bool"
+        }
+      ],
+      "name": "SetHarvester",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "SLIPPAGE_PRECISION",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "alchemist",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumHarvestAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumDelay",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slippageBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "addHarvestJob",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "checker",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "canExec",
+          "type": "bool"
+        },
+        {
+          "internalType": "bytes",
+          "name": "execPayload",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "harvestJobs",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        },
+        {
+          "internalType": "address",
+          "name": "alchemist",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastHarvest",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumHarvestAmount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumDelay",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slippageBps",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "harvesters",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "paused",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        }
+      ],
+      "name": "recordHarvest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        }
+      ],
+      "name": "recoverFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        }
+      ],
+      "name": "removeHarvestJob",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "active",
+          "type": "bool"
+        }
+      ],
+      "name": "setActive",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "alchemist",
+          "type": "address"
+        }
+      ],
+      "name": "setAlchemist",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "harvester",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "status",
+          "type": "bool"
+        }
+      ],
+      "name": "setHarvester",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumDelay",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMinimumDelay",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumHarvestAmount",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMinimumHarvestAmount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "pauseState",
+          "type": "bool"
+        }
+      ],
+      "name": "setPause",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "slippageBps",
+          "type": "uint256"
+        }
+      ],
+      "name": "setSlippageBps",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "yieldTokens",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xb8693aa5ad22c41659ce00c16e9cfa7d3fd2aa4eb5bfaa381c562381a98c5509",
+  "receipt": {
+    "to": null,
+    "from": "0x526D542FFBAe26D510cD610b8050438586fd203C",
+    "contractAddress": "0x443d61f3E9F33422b4583632b37047bDb1f0f4e8",
+    "transactionIndex": 0,
+    "gasUsed": "1878541",
+    "logsBloom": "0x00000020000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000008000000000020000000000000000000800000000000000000000000000080000400000000000000000000000100002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000002000000000000000",
+    "blockHash": "0x0001c3c600000f955b517c2db069ed88e1e023c0324244e516098cb40136d145",
+    "transactionHash": "0xb8693aa5ad22c41659ce00c16e9cfa7d3fd2aa4eb5bfaa381c562381a98c5509",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 38920246,
+        "transactionHash": "0xb8693aa5ad22c41659ce00c16e9cfa7d3fd2aa4eb5bfaa381c562381a98c5509",
+        "address": "0x443d61f3E9F33422b4583632b37047bDb1f0f4e8",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000526d542ffbae26d510cd610b8050438586fd203c"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x0001c3c600000f955b517c2db069ed88e1e023c0324244e516098cb40136d145"
+      }
+    ],
+    "blockNumber": 38920246,
+    "cumulativeGasUsed": "1878541",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "solcInputHash": "3a1dc3cc0cb57037bc967075cab29730",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"HarvestJobDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"IllegalArgument\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Unauthorized\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"YieldTokenDisabled\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"}],\"name\":\"RecordHarvest\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"}],\"name\":\"RemoveHarvestJob\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"alchemist\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumHarvestAmount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"minimumDelay\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"slippageBps\",\"type\":\"uint256\"}],\"name\":\"SetHarvestJob\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"harvester\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"status\",\"type\":\"bool\"}],\"name\":\"SetHarvester\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"SLIPPAGE_PRECISION\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"alchemist\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minimumHarvestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minimumDelay\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"slippageBps\",\"type\":\"uint256\"}],\"name\":\"addHarvestJob\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"checker\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"canExec\",\"type\":\"bool\"},{\"internalType\":\"bytes\",\"name\":\"execPayload\",\"type\":\"bytes\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"harvestJobs\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"alchemist\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"lastHarvest\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minimumHarvestAmount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"minimumDelay\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"slippageBps\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"harvesters\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"paused\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"}],\"name\":\"recordHarvest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"}],\"name\":\"recoverFunds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"}],\"name\":\"removeHarvestJob\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"}],\"name\":\"setActive\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"alchemist\",\"type\":\"address\"}],\"name\":\"setAlchemist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"harvester\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"status\",\"type\":\"bool\"}],\"name\":\"setHarvester\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minimumDelay\",\"type\":\"uint256\"}],\"name\":\"setMinimumDelay\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minimumHarvestAmount\",\"type\":\"uint256\"}],\"name\":\"setMinimumHarvestAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bool\",\"name\":\"pauseState\",\"type\":\"bool\"}],\"name\":\"setPause\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"slippageBps\",\"type\":\"uint256\"}],\"name\":\"setSlippageBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"yieldTokens\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"addHarvestJob(bool,address,address,uint256,uint256,uint256)\":{\"params\":{\"active\":\"A flag for whether or not the harvest job is active.\",\"alchemist\":\"The address of the alchemist to be harvested.\",\"minimumDelay\":\"The minimum delay (in seconds) needed between successive runs of the job.\",\"minimumHarvestAmount\":\"The minimum amount of harvestable funds required in order to run the harvest job.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"checker()\":{\"returns\":{\"canExec\":\"    If a harvest is needed\",\"execPayload\":\"The payload to forward to the AlchemixHarvester\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"recoverFunds(address)\":{\"params\":{\"token\":\"The token to remove.\"}},\"removeHarvestJob(address)\":{\"params\":{\"yieldToken\":\"The address of the yield token to remove.\"}},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"setActive(address,bool)\":{\"params\":{\"active\":\"A flag for whether or not the harvest job is active.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"setAlchemist(address,address)\":{\"params\":{\"alchemist\":\"The address of the alchemist to be harvested.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"setHarvester(address,bool)\":{\"params\":{\"harvester\":\"The address of the target harvester.\",\"status\":\"The status to set for the target harvester.\"}},\"setMinimumDelay(address,uint256)\":{\"params\":{\"minimumDelay\":\"The minimum delay (in seconds) needed between successive runs of the job.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"setMinimumHarvestAmount(address,uint256)\":{\"params\":{\"minimumHarvestAmount\":\"The minimum amount of harvestable funds required in order to run the harvest job.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"setPause(bool)\":{\"params\":{\"pauseState\":\"The pause state to set.\"}},\"setSlippageBps(address,uint256)\":{\"params\":{\"slippageBps\":\"The amount of slippage to accept during a harvest.\",\"yieldToken\":\"The address of the yield token to be harvested.\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"stateVariables\":{\"harvestJobs\":{\"details\":\"yieldToken => HarvestJob.\"},\"harvesters\":{\"details\":\"A mapping of the registered harvesters.\"},\"paused\":{\"details\":\"Whether or not the resolver is paused.\"},\"yieldTokens\":{\"details\":\"The list of yield tokens that define harvest jobs.\"}},\"version\":1},\"userdoc\":{\"errors\":{\"HarvestJobDoesNotExist()\":[{\"notice\":\"Thrown when attempting to remove a harvest job that does not currently exist.\"}],\"IllegalArgument()\":[{\"notice\":\"Thrown when an illegal argument is given.\"}],\"Unauthorized()\":[{\"notice\":\"Thrown when an unauthorized address attempts to access a protected function.\"}],\"YieldTokenDisabled()\":[{\"notice\":\"Thrown when the yield token of a harvest job being added is disabled in the alchemist of the harvest job being added.\"}]},\"events\":{\"RecordHarvest(address)\":{\"notice\":\"Emitted when a harvest is recorded.\"},\"RemoveHarvestJob(address)\":{\"notice\":\"Emitted when a harvest job is removed from the list.\"},\"SetHarvestJob(bool,address,address,uint256,uint256,uint256)\":{\"notice\":\"Emitted when details of a harvest job are set.\"},\"SetHarvester(address,bool)\":{\"notice\":\"Emitted when a harvester status is updated.\"}},\"kind\":\"user\",\"methods\":{\"addHarvestJob(bool,address,address,uint256,uint256,uint256)\":{\"notice\":\"Sets the parameters of a harvest job and adds it to the list if needed.\"},\"checker()\":{\"notice\":\"Check if there is a harvest that needs to be run. Returns FALSE if the resolver is paused. Returns TRUE for the first harvest job that meets the following criteria:     - the harvest job is active     - `yieldToken` is enabled in the Alchemist     - minimumDelay seconds have passed since the `yieldToken` was last harvested     - the expected harvest amount is greater than minimumHarvestAmount Returns FALSE if no harvest jobs meet the above criteria.\"},\"recoverFunds(address)\":{\"notice\":\"Remove tokens that were accidentally sent to the resolver.\"},\"removeHarvestJob(address)\":{\"notice\":\"Removes a harvest job from the list of harvest jobs.\"},\"setActive(address,bool)\":{\"notice\":\"Sets if a harvest job is active.\"},\"setAlchemist(address,address)\":{\"notice\":\"Sets the alchemist of a harvest job.\"},\"setHarvester(address,bool)\":{\"notice\":\"Enables or disables a harvester from calling protected harvester-only functions.\"},\"setMinimumDelay(address,uint256)\":{\"notice\":\"Sets the minimum delay of a harvest job.\"},\"setMinimumHarvestAmount(address,uint256)\":{\"notice\":\"Sets the minimum harvest amount of a harvest job.\"},\"setPause(bool)\":{\"notice\":\"Pauses and un-pauses the resolver.\"},\"setSlippageBps(address,uint256)\":{\"notice\":\"Sets the amount of slippage for a harvest job.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/HarvestResolver.sol\":\"HarvestResolver\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":999999},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0x24e0364e503a9bbde94c715d26573a76f14cd2a202d45f96f52134ab806b67b9\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (token/ERC20/IERC20.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC20 standard as defined in the EIP.\\n */\\ninterface IERC20 {\\n    /**\\n     * @dev Returns the amount of tokens in existence.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns the amount of tokens owned by `account`.\\n     */\\n    function balanceOf(address account) external view returns (uint256);\\n\\n    /**\\n     * @dev Moves `amount` tokens from the caller's account to `recipient`.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transfer(address recipient, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Returns the remaining number of tokens that `spender` will be\\n     * allowed to spend on behalf of `owner` through {transferFrom}. This is\\n     * zero by default.\\n     *\\n     * This value changes when {approve} or {transferFrom} are called.\\n     */\\n    function allowance(address owner, address spender) external view returns (uint256);\\n\\n    /**\\n     * @dev Sets `amount` as the allowance of `spender` over the caller's tokens.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * IMPORTANT: Beware that changing an allowance with this method brings the risk\\n     * that someone may use both the old and the new allowance by unfortunate\\n     * transaction ordering. One possible solution to mitigate this race\\n     * condition is to first reduce the spender's allowance to 0 and set the\\n     * desired value afterwards:\\n     * https://github.com/ethereum/EIPs/issues/20#issuecomment-263524729\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address spender, uint256 amount) external returns (bool);\\n\\n    /**\\n     * @dev Moves `amount` tokens from `sender` to `recipient` using the\\n     * allowance mechanism. `amount` is then deducted from the caller's\\n     * allowance.\\n     *\\n     * Returns a boolean value indicating whether the operation succeeded.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address sender,\\n        address recipient,\\n        uint256 amount\\n    ) external returns (bool);\\n\\n    /**\\n     * @dev Emitted when `value` tokens are moved from one account (`from`) to\\n     * another (`to`).\\n     *\\n     * Note that `value` may be zero.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 value);\\n\\n    /**\\n     * @dev Emitted when the allowance of a `spender` for an `owner` is set by\\n     * a call to {approve}. `value` is the new allowance.\\n     */\\n    event Approval(address indexed owner, address indexed spender, uint256 value);\\n}\\n\",\"keccak256\":\"0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/math/SafeMath.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/math/SafeMath.sol)\\n\\npragma solidity ^0.8.0;\\n\\n// CAUTION\\n// This version of SafeMath should only be used with Solidity 0.8 or later,\\n// because it relies on the compiler's built in overflow checks.\\n\\n/**\\n * @dev Wrappers over Solidity's arithmetic operations.\\n *\\n * NOTE: `SafeMath` is generally not needed starting with Solidity 0.8, since the compiler\\n * now has built in overflow checking.\\n */\\nlibrary SafeMath {\\n    /**\\n     * @dev Returns the addition of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryAdd(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            uint256 c = a + b;\\n            if (c < a) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the substraction of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function trySub(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b > a) return (false, 0);\\n            return (true, a - b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, with an overflow flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMul(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            // Gas optimization: this is cheaper than requiring 'a' not being zero, but the\\n            // benefit is lost if 'b' is also tested.\\n            // See: https://github.com/OpenZeppelin/openzeppelin-contracts/pull/522\\n            if (a == 0) return (true, 0);\\n            uint256 c = a * b;\\n            if (c / a != b) return (false, 0);\\n            return (true, c);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the division of two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryDiv(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a / b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers, with a division by zero flag.\\n     *\\n     * _Available since v3.4._\\n     */\\n    function tryMod(uint256 a, uint256 b) internal pure returns (bool, uint256) {\\n        unchecked {\\n            if (b == 0) return (false, 0);\\n            return (true, a % b);\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the addition of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `+` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Addition cannot overflow.\\n     */\\n    function add(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a + b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting on\\n     * overflow (when the result is negative).\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a - b;\\n    }\\n\\n    /**\\n     * @dev Returns the multiplication of two unsigned integers, reverting on\\n     * overflow.\\n     *\\n     * Counterpart to Solidity's `*` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Multiplication cannot overflow.\\n     */\\n    function mul(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a * b;\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a / b;\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting when dividing by zero.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(uint256 a, uint256 b) internal pure returns (uint256) {\\n        return a % b;\\n    }\\n\\n    /**\\n     * @dev Returns the subtraction of two unsigned integers, reverting with custom message on\\n     * overflow (when the result is negative).\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {trySub}.\\n     *\\n     * Counterpart to Solidity's `-` operator.\\n     *\\n     * Requirements:\\n     *\\n     * - Subtraction cannot overflow.\\n     */\\n    function sub(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b <= a, errorMessage);\\n            return a - b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the integer division of two unsigned integers, reverting with custom message on\\n     * division by zero. The result is rounded towards zero.\\n     *\\n     * Counterpart to Solidity's `/` operator. Note: this function uses a\\n     * `revert` opcode (which leaves remaining gas untouched) while Solidity\\n     * uses an invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function div(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a / b;\\n        }\\n    }\\n\\n    /**\\n     * @dev Returns the remainder of dividing two unsigned integers. (unsigned integer modulo),\\n     * reverting with custom message when dividing by zero.\\n     *\\n     * CAUTION: This function is deprecated because it requires allocating memory for the error\\n     * message unnecessarily. For custom revert reasons use {tryMod}.\\n     *\\n     * Counterpart to Solidity's `%` operator. This function uses a `revert`\\n     * opcode (which leaves remaining gas untouched) while Solidity uses an\\n     * invalid opcode to revert (consuming all remaining gas).\\n     *\\n     * Requirements:\\n     *\\n     * - The divisor cannot be zero.\\n     */\\n    function mod(\\n        uint256 a,\\n        uint256 b,\\n        string memory errorMessage\\n    ) internal pure returns (uint256) {\\n        unchecked {\\n            require(b > 0, errorMessage);\\n            return a % b;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0xa2f576be637946f767aa56601c26d717f48a0aff44f82e46f13807eea1009a21\",\"license\":\"MIT\"},\"contracts/HarvestResolver.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\nimport \\\"./interfaces/IResolver.sol\\\";\\nimport \\\"./interfaces/IAlchemistV2.sol\\\";\\nimport \\\"./interfaces/IAlchemixHarvester.sol\\\";\\nimport \\\"./interfaces/ITokenAdapter.sol\\\";\\nimport \\\"@openzeppelin/contracts/token/ERC20/IERC20.sol\\\";\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"@openzeppelin/contracts/utils/math/SafeMath.sol\\\";\\nimport \\\"./libraries/SafeCast.sol\\\";\\n\\ncontract HarvestResolver is IResolver, Ownable {\\n  /// @notice Thrown when the yield token of a harvest job being added is disabled in the alchemist of the harvest job being added.\\n  error YieldTokenDisabled();\\n  /// @notice Thrown when attempting to remove a harvest job that does not currently exist.\\n  error HarvestJobDoesNotExist();\\n  /// @notice Thrown when an unauthorized address attempts to access a protected function.\\n  error Unauthorized();\\n  /// @notice Thrown when an illegal argument is given.\\n  error IllegalArgument();\\n\\n  /// @notice Emitted when details of a harvest job are set.\\n  event SetHarvestJob(\\n    bool active,\\n    address yieldToken,\\n    address alchemist,\\n    uint256 minimumHarvestAmount,\\n    uint256 minimumDelay,\\n    uint256 slippageBps\\n  );\\n\\n  /// @notice Emitted when a harvester status is updated.\\n  event SetHarvester(address harvester, bool status);\\n\\n  /// @notice Emitted when a harvest job is removed from the list.\\n  event RemoveHarvestJob(address yieldToken);\\n\\n  /// @notice Emitted when a harvest is recorded.\\n  event RecordHarvest(address yieldToken);\\n  struct HarvestJob {\\n    bool active;\\n    address alchemist;\\n    uint256 lastHarvest;\\n    uint256 minimumHarvestAmount;\\n    uint256 minimumDelay;\\n    uint256 slippageBps;\\n  }\\n\\n  uint256 public constant SLIPPAGE_PRECISION = 10000;\\n\\n  /// @dev The list of yield tokens that define harvest jobs.\\n  address[] public yieldTokens;\\n\\n  /// @dev yieldToken => HarvestJob.\\n  mapping(address => HarvestJob) public harvestJobs;\\n\\n  /// @dev Whether or not the resolver is paused.\\n  bool public paused;\\n\\n  /// @dev A mapping of the registered harvesters.\\n  mapping(address => bool) public harvesters;\\n\\n  constructor() Ownable() {}\\n\\n  modifier onlyHarvester() {\\n    if (!harvesters[msg.sender]) {\\n      revert Unauthorized();\\n    }\\n    _;\\n  }\\n\\n  /// @notice Enables or disables a harvester from calling protected harvester-only functions.\\n  ///\\n  /// @param harvester The address of the target harvester.\\n  /// @param status The status to set for the target harvester.\\n  function setHarvester(address harvester, bool status) external onlyOwner {\\n    harvesters[harvester] = status;\\n    emit SetHarvester(harvester, status);\\n  }\\n\\n  /// @notice Pauses and un-pauses the resolver.\\n  ///\\n  /// @param pauseState The pause state to set.\\n  function setPause(bool pauseState) external onlyOwner {\\n    paused = pauseState;\\n  }\\n\\n  /// @notice Remove tokens that were accidentally sent to the resolver.\\n  ///\\n  /// @param token The token to remove.\\n  function recoverFunds(address token) external onlyOwner {\\n    IERC20(token).transfer(msg.sender, IERC20(token).balanceOf(address(this)));\\n  }\\n\\n  /// @notice Sets the parameters of a harvest job and adds it to the list if needed.\\n  ///\\n  /// @param active               A flag for whether or not the harvest job is active.\\n  /// @param yieldToken           The address of the yield token to be harvested.\\n  /// @param alchemist            The address of the alchemist to be harvested.\\n  /// @param minimumHarvestAmount The minimum amount of harvestable funds required in order to run the harvest job.\\n  /// @param minimumDelay         The minimum delay (in seconds) needed between successive runs of the job.\\n  function addHarvestJob(\\n    bool active,\\n    address yieldToken,\\n    address alchemist,\\n    uint256 minimumHarvestAmount,\\n    uint256 minimumDelay,\\n    uint256 slippageBps\\n  ) external onlyOwner {\\n    IAlchemistV2.YieldTokenParams memory ytp = IAlchemistV2(alchemist).getYieldTokenParameters(yieldToken);\\n    if (!ytp.enabled) {\\n      revert YieldTokenDisabled();\\n    }\\n\\n    if (slippageBps > SLIPPAGE_PRECISION) {\\n      revert IllegalArgument();\\n    }\\n\\n    harvestJobs[yieldToken] = HarvestJob(\\n      active,\\n      alchemist,\\n      block.timestamp,\\n      minimumHarvestAmount,\\n      minimumDelay,\\n      slippageBps\\n    );\\n\\n    emit SetHarvestJob(active, yieldToken, alchemist, minimumHarvestAmount, minimumDelay, slippageBps);\\n\\n    // Only add the yield token to the list if it doesnt exist yet.\\n    for (uint256 i = 0; i < yieldTokens.length; i++) {\\n      if (yieldTokens[i] == yieldToken) {\\n        return;\\n      }\\n    }\\n    yieldTokens.push(yieldToken);\\n  }\\n\\n  /// @notice Sets if a harvest job is active.\\n  ///\\n  /// @param yieldToken   The address of the yield token to be harvested.\\n  /// @param active       A flag for whether or not the harvest job is active.\\n  function setActive(address yieldToken, bool active) external onlyOwner {\\n    harvestJobs[yieldToken].active = active;\\n  }\\n\\n  /// @notice Sets the alchemist of a harvest job.\\n  ///\\n  /// @param yieldToken   The address of the yield token to be harvested.\\n  /// @param alchemist    The address of the alchemist to be harvested.\\n  function setAlchemist(address yieldToken, address alchemist) external onlyOwner {\\n    IAlchemistV2.YieldTokenParams memory ytp = IAlchemistV2(alchemist).getYieldTokenParameters(yieldToken);\\n    if (!ytp.enabled) {\\n      revert YieldTokenDisabled();\\n    }\\n    harvestJobs[yieldToken].alchemist = alchemist;\\n  }\\n\\n  /// @notice Sets the minimum harvest amount of a harvest job.\\n  ///\\n  /// @param yieldToken           The address of the yield token to be harvested.\\n  /// @param minimumHarvestAmount The minimum amount of harvestable funds required in order to run the harvest job.\\n  function setMinimumHarvestAmount(address yieldToken, uint256 minimumHarvestAmount) external onlyOwner {\\n    harvestJobs[yieldToken].minimumHarvestAmount = minimumHarvestAmount;\\n  }\\n\\n  /// @notice Sets the minimum delay of a harvest job.\\n  ///\\n  /// @param yieldToken   The address of the yield token to be harvested.\\n  /// @param minimumDelay The minimum delay (in seconds) needed between successive runs of the job.\\n  function setMinimumDelay(address yieldToken, uint256 minimumDelay) external onlyOwner {\\n    harvestJobs[yieldToken].minimumDelay = minimumDelay;\\n  }\\n\\n  /// @notice Sets the amount of slippage for a harvest job.\\n  ///\\n  /// @param yieldToken   The address of the yield token to be harvested.\\n  /// @param slippageBps  The amount of slippage to accept during a harvest.\\n  function setSlippageBps(address yieldToken, uint256 slippageBps) external onlyOwner {\\n    harvestJobs[yieldToken].slippageBps = slippageBps;\\n  }\\n\\n  /// @notice Removes a harvest job from the list of harvest jobs.\\n  ///\\n  /// @param yieldToken The address of the yield token to remove.\\n  function removeHarvestJob(address yieldToken) external onlyOwner {\\n    int256 idx = -1;\\n    for (uint256 i = 0; i < yieldTokens.length; i++) {\\n      if (yieldTokens[i] == yieldToken) {\\n        idx = SafeCast.toInt256(i);\\n      }\\n    }\\n    if (idx > -1) {\\n      delete harvestJobs[yieldToken];\\n      yieldTokens[SafeCast.toUint256(idx)] = yieldTokens[yieldTokens.length - 1];\\n      yieldTokens.pop();\\n      emit RemoveHarvestJob(yieldToken);\\n    } else {\\n      revert HarvestJobDoesNotExist();\\n    }\\n  }\\n\\n  /// @notice Check if there is a harvest that needs to be run.\\n  ///\\n  /// Returns FALSE if the resolver is paused.\\n  /// Returns TRUE for the first harvest job that meets the following criteria:\\n  ///     - the harvest job is active\\n  ///     - `yieldToken` is enabled in the Alchemist\\n  ///     - minimumDelay seconds have passed since the `yieldToken` was last harvested\\n  ///     - the expected harvest amount is greater than minimumHarvestAmount\\n  /// Returns FALSE if no harvest jobs meet the above criteria.\\n  ///\\n  /// @return canExec     If a harvest is needed\\n  /// @return execPayload The payload to forward to the AlchemixHarvester\\n  function checker() external view returns (bool canExec, bytes memory execPayload) {\\n    if (paused) {\\n      return (false, abi.encode(0));\\n    }\\n\\n    for (uint256 i = 0; i < yieldTokens.length; i++) {\\n      address yieldToken = yieldTokens[i];\\n      HarvestJob memory h = harvestJobs[yieldToken];\\n      if (h.active) {\\n        IAlchemistV2.YieldTokenParams memory ytp = IAlchemistV2(h.alchemist).getYieldTokenParameters(yieldToken);\\n\\n        if (ytp.enabled) {\\n          uint256 pps = ITokenAdapter(ytp.adapter).price();\\n          uint256 currentValue = ((ytp.activeBalance + ytp.harvestableBalance) * pps) / 10**ytp.decimals;\\n          if (\\n            (block.timestamp >= h.lastHarvest + h.minimumDelay) &&\\n            (currentValue > ytp.expectedValue + h.minimumHarvestAmount)\\n          ) {\\n            uint256 minimumAmountOut = currentValue - ytp.expectedValue;\\n            minimumAmountOut = minimumAmountOut - (minimumAmountOut * h.slippageBps) / SLIPPAGE_PRECISION;\\n            return (\\n              true,\\n              abi.encodeWithSelector(IAlchemixHarvester.harvest.selector, h.alchemist, yieldToken, minimumAmountOut)\\n            );\\n          }\\n        }\\n      }\\n    }\\n    return (false, abi.encode(0));\\n  }\\n\\n  function recordHarvest(address yieldToken) external onlyHarvester {\\n    harvestJobs[yieldToken].lastHarvest = block.timestamp;\\n    emit RecordHarvest(yieldToken);\\n  }\\n}\\n\",\"keccak256\":\"0xe3eeb912007cd680c8d347b9952855e8d4f840e01c88e0871e90f4f9f1dce9f0\"},\"contracts/interfaces/IAlchemistV2.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IAlchemistV2 {\\n    struct YieldTokenParams {\\n        uint8 decimals;\\n        address underlyingToken;\\n        address adapter;\\n        uint256 maximumLoss;\\n        uint256 maximumExpectedValue;\\n        uint256 creditUnlockRate;\\n        uint256 activeBalance;\\n        uint256 harvestableBalance;\\n        uint256 totalShares;\\n        uint256 expectedValue;\\n        uint256 pendingCredit;\\n        uint256 distributedCredit;\\n        uint256 lastDistributionBlock;\\n        uint256 accruedWeight;\\n        bool enabled;\\n    }\\n\\n    struct YieldTokenConfig {\\n        address adapter;\\n        uint256 maximumLoss;\\n        uint256 maximumExpectedValue;\\n        uint256 creditUnlockRate;\\n    }\\n\\n    function harvest(address yieldToken, uint256 minimumAmountOut) external;\\n\\n    function getYieldTokenParameters(address yieldToken)\\n        external\\n        view\\n        returns (YieldTokenParams memory params);\\n}\\n\",\"keccak256\":\"0x39d8b4e9e7da90552015a4e6e25e0958915eed9459d77b1ee8486b752ddf3cd4\"},\"contracts/interfaces/IAlchemixHarvester.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IAlchemixHarvester {\\n  function harvest(\\n    address alchemist,\\n    address yieldToken,\\n    uint256 minimumAmountOut\\n  ) external;\\n}\\n\",\"keccak256\":\"0x023a589a1af6b8a752bdec6cf0a1ac4d49babbcaf819db83fb2d558acbf26738\"},\"contracts/interfaces/IResolver.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IResolver {\\n    function checker()\\n        external\\n        view\\n        returns (bool canExec, bytes memory execPayload);\\n}\\n\",\"keccak256\":\"0x75aa528b3b81c24253686668b33d6dc3e2cadcbe0ef5d19f073cba08c180f84f\"},\"contracts/interfaces/ITokenAdapter.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface ITokenAdapter {\\n    function token() external view returns (address);\\n\\n    function price() external view returns (uint256);\\n\\n    function defaultUnwrapData() external view returns (bytes memory);\\n}\\n\",\"keccak256\":\"0xda31400cd9261f3f0281f974c08cd9f5608022b45bc88f2e8cb96a943671005d\"},\"contracts/libraries/SafeCast.sol\":{\"content\":\"// SPDX-License-Identifier: GPL-2.0-or-later\\npragma solidity >=0.5.0;\\n\\n/// @title Safe casting methods\\n/// @notice Contains methods for safely casting between types\\nlibrary SafeCast {\\n    /// @notice Cast a uint256 to a int256, revert on overflow\\n    /// @param y The uint256 to be casted\\n    /// @return z The casted integer, now type int256\\n    function toInt256(uint256 y) internal pure returns (int256 z) {\\n        require(y < 2**255, \\\"SafeCast: bad int256\\\");\\n        z = int256(y);\\n    }\\n\\n    /// @notice Cast a int256 to a uint256, revert on underflow\\n    /// @param y The int256 to be casted\\n    /// @return z The casted integer, now type uint256\\n    function toUint256(int256 y) internal pure returns (uint256 z) {\\n        require(y >= 0, \\\"SafeCast: bad uint256\\\");\\n        z = uint256(y);\\n    }\\n}\\n\",\"keccak256\":\"0x6c9f2d8a716f9b683c4c83a1801102ed2d70fea34667dbf5e219be001ce1343e\",\"license\":\"GPL-2.0-or-later\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061001a3361001f565b61006f565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6120c98061007e6000396000f3fe608060405234801561001057600080fd5b506004361061016c5760003560e01c80638da5cb5b116100cd578063bedb86fb11610081578063e635d5f211610066578063e635d5f214610301578063e72f6e30146103a0578063f2fde38b146103b357600080fd5b8063bedb86fb146102d8578063cf5303cf146102eb57600080fd5b8063b018895c116100b2578063b018895c1461029f578063b2236021146102b2578063b73cc2a3146102c557600080fd5b80638da5cb5b1461026e578063af9d98a91461028c57600080fd5b8063539efd4b116101245780636c7be337116101095780636c7be33714610230578063715018a614610243578063879765831461024b57600080fd5b8063539efd4b146101db5780635c975abb1461021357600080fd5b80632ce962cf116101555780632ce962cf1461019957806331b71057146101ac578063453943f0146101bf57600080fd5b80630a69af31146101715780630bca886914610186575b600080fd5b61018461017f366004611a9e565b6103c6565b005b610184610194366004611b03565b6107a4565b6101846101a7366004611b2f565b610851565b6101846101ba366004611b2f565b610928565b6101c861271081565b6040519081526020015b60405180910390f35b6101ee6101e9366004611b68565b610a38565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020016101d2565b6003546102209060ff1681565b60405190151581526020016101d2565b61018461023e366004611b81565b610a6f565b610184610c20565b610220610259366004611baf565b60046020526000908152604090205460ff1681565b60005473ffffffffffffffffffffffffffffffffffffffff166101ee565b61018461029a366004611baf565b610cad565b6101846102ad366004611b03565b610d59565b6101846102c0366004611baf565b610e06565b6101846102d3366004611b03565b611141565b6101846102e6366004611bd3565b6111ef565b6102f36112a1565b6040516101d2929190611bf0565b61035c61030f366004611baf565b60026020819052600091825260409091208054600182015492820154600383015460049093015460ff83169461010090930473ffffffffffffffffffffffffffffffffffffffff16939086565b60408051961515875273ffffffffffffffffffffffffffffffffffffffff9095166020870152938501929092526060840152608083015260a082015260c0016101d2565b6101846103ae366004611baf565b611621565b6101846103c1366004611baf565b6117ce565b60005473ffffffffffffffffffffffffffffffffffffffff16331461044c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b6040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff868116600483015260009190861690635a5efc8b906024016101e060405180830381865afa1580156104bd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104e19190611cea565b9050806101c0015161051f576040517f0f9d745400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b61271082111561055b576040517f9a124c8000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040805160c081018252881515815273ffffffffffffffffffffffffffffffffffffffff808816602080840191825242848601908152606085018a8152608086018a815260a087018a81528e87166000908152600295869052899020975188549651909716610100027fffffffffffffffffffffff0000000000000000000000000000000000000000ff971515979097167fffffffffffffffffffffff000000000000000000000000000000000000000000909616959095179590951786559051600186015551908401559051600383015551600490910155517f12eab20548b80c832c05e80d43b04913c1fdf7bd639ebebadfd9e407250bff3b906106aa90899089908990899089908990951515865273ffffffffffffffffffffffffffffffffffffffff94851660208701529290931660408501526060840152608083019190915260a082015260c00190565b60405180910390a160005b60015481101561072a578673ffffffffffffffffffffffffffffffffffffffff16600182815481106106e9576106e9611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16141561071857505061079c565b8061072281611e1d565b9150506106b5565b50506001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff87161790555b505050505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610825576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff909116600090815260026020526040902060040155565b60005473ffffffffffffffffffffffffffffffffffffffff1633146108d2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff91909116600090815260026020526040902080547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0016911515919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff1633146109a9576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff821660008181526004602090815260409182902080547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00168515159081179091558251938452908301527fffbdc28f0395f8dd81699928814abd1846ddbad638fe3482c8375836a4e9825291015b60405180910390a15050565b60018181548110610a4857600080fd5b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16905081565b60005473ffffffffffffffffffffffffffffffffffffffff163314610af0576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b6040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff838116600483015260009190831690635a5efc8b906024016101e060405180830381865afa158015610b61573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b859190611cea565b9050806101c00151610bc3576040517f0f9d745400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5073ffffffffffffffffffffffffffffffffffffffff9182166000908152600260205260409020805492909116610100027fffffffffffffffffffffff0000000000000000000000000000000000000000ff909216919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff163314610ca1576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b610cab60006118fe565b565b3360009081526004602052604090205460ff16610cf6576040517f82b4290000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b73ffffffffffffffffffffffffffffffffffffffff81166000818152600260209081526040918290204260019091015590519182527f549d5a8cc9d7d0d28c5c93782ae549548749ec3884c725765a8570597d6a13f8910160405180910390a150565b60005473ffffffffffffffffffffffffffffffffffffffff163314610dda576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff909116600090815260026020526040902060030155565b60005473ffffffffffffffffffffffffffffffffffffffff163314610e87576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60005b600154811015610f25578273ffffffffffffffffffffffffffffffffffffffff1660018281548110610edf57610edf611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff161415610f1357610f1081611973565b91505b80610f1d81611e1d565b915050610eab565b507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff81131561110b5773ffffffffffffffffffffffffffffffffffffffff82166000908152600260208190526040822080547fffffffffffffffffffffff000000000000000000000000000000000000000000168155600180820184905591810183905560038101839055600401919091558054610fc4908290611e56565b81548110610fd457610fd4611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16600161100183611a02565b8154811061101157611011611dbf565b9060005260206000200160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600180548061106a5761106a611e6d565b60008281526020908190207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff908301810180547fffffffffffffffffffffffff000000000000000000000000000000000000000016905590910190915560405173ffffffffffffffffffffffffffffffffffffffff841681527fdd2f9126294675e89c6ca967164843d07ab1cc694b6812112c89c6ae64eed7c79101610a2c565b6040517f6588847000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146111c2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff90911660009081526002602081905260409091200155565b60005473ffffffffffffffffffffffffffffffffffffffff163314611270576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b600380547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0016911515919091179055565b60035460009060609060ff16156112d9576040805160006020820181905291015b604051602081830303815290604052915091509091565b60005b60015481101561160c576000600182815481106112fb576112fb611dbf565b600091825260208083209091015473ffffffffffffffffffffffffffffffffffffffff9081168084526002808452604094859020855160c081018752815460ff811615801583526101009091049095169581019590955260018101549585019590955284015460608401526003840154608084015260049093015460a0830152919250906115f75760208101516040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff84811660048301526000921690635a5efc8b906024016101e060405180830381865afa1580156113f7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061141b9190611cea565b9050806101c00151156115f5576000816040015173ffffffffffffffffffffffffffffffffffffffff1663a035b1fe6040518163ffffffff1660e01b8152600401602060405180830381865afa158015611479573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061149d9190611e9c565b82519091506000906114b090600a611fd7565b828460e001518560c001516114c59190611fe6565b6114cf9190611ffe565b6114d9919061203b565b9050836080015184604001516114ef9190611fe6565b42101580156115115750836060015183610120015161150e9190611fe6565b81115b156115f2576000836101200151826115299190611e56565b90506127108560a001518261153e9190611ffe565b611548919061203b565b6115529082611e56565b6020958601516040805173ffffffffffffffffffffffffffffffffffffffff928316602482015298909116604489015260648089019290925280518089039092018252608490970190965250505050810180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fc2ceb95f00000000000000000000000000000000000000000000000000000000179052600194909350915050565b50505b505b5050808061160490611e1d565b9150506112dc565b506040805160006020820181905291016112c2565b60005473ffffffffffffffffffffffffffffffffffffffff1633146116a2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b6040517f70a0823100000000000000000000000000000000000000000000000000000000815230600482015273ffffffffffffffffffffffffffffffffffffffff82169063a9059cbb90339083906370a0823190602401602060405180830381865afa158015611716573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061173a9190611e9c565b6040517fffffffff0000000000000000000000000000000000000000000000000000000060e085901b16815273ffffffffffffffffffffffffffffffffffffffff909216600483015260248201526044016020604051808303816000875af11580156117aa573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061113d9190612076565b60005473ffffffffffffffffffffffffffffffffffffffff16331461184f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff81166118f2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f64647265737300000000000000000000000000000000000000000000000000006064820152608401610443565b6118fb816118fe565b50565b6000805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60007f800000000000000000000000000000000000000000000000000000000000000082106119fe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601460248201527f53616665436173743a2062616420696e743235360000000000000000000000006044820152606401610443565b5090565b6000808212156119fe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601560248201527f53616665436173743a206261642075696e7432353600000000000000000000006044820152606401610443565b80151581146118fb57600080fd5b73ffffffffffffffffffffffffffffffffffffffff811681146118fb57600080fd5b60008060008060008060c08789031215611ab757600080fd5b8635611ac281611a6e565b95506020870135611ad281611a7c565b94506040870135611ae281611a7c565b959894975094956060810135955060808101359460a0909101359350915050565b60008060408385031215611b1657600080fd5b8235611b2181611a7c565b946020939093013593505050565b60008060408385031215611b4257600080fd5b8235611b4d81611a7c565b91506020830135611b5d81611a6e565b809150509250929050565b600060208284031215611b7a57600080fd5b5035919050565b60008060408385031215611b9457600080fd5b8235611b9f81611a7c565b91506020830135611b5d81611a7c565b600060208284031215611bc157600080fd5b8135611bcc81611a7c565b9392505050565b600060208284031215611be557600080fd5b8135611bcc81611a6e565b821515815260006020604081840152835180604085015260005b81811015611c2657858101830151858201606001528201611c0a565b81811115611c38576000606083870101525b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe01692909201606001949350505050565b6040516101e0810167ffffffffffffffff81118282101715611cb8577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405290565b805160ff81168114611ccf57600080fd5b919050565b8051611ccf81611a7c565b8051611ccf81611a6e565b60006101e08284031215611cfd57600080fd5b611d05611c6d565b611d0e83611cbe565b8152611d1c60208401611cd4565b6020820152611d2d60408401611cd4565b6040820152606083810151908201526080808401519082015260a0808401519082015260c0808401519082015260e08084015190820152610100808401519082015261012080840151908201526101408084015190820152610160808401519082015261018080840151908201526101a080840151908201526101c0611db4818501611cdf565b908201529392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611e4f57611e4f611dee565b5060010190565b600082821015611e6857611e68611dee565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603160045260246000fd5b600060208284031215611eae57600080fd5b5051919050565b600181815b80851115611f0e57817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115611ef457611ef4611dee565b80851615611f0157918102915b93841c9390800290611eba565b509250929050565b600082611f2557506001611fd1565b81611f3257506000611fd1565b8160018114611f485760028114611f5257611f6e565b6001915050611fd1565b60ff841115611f6357611f63611dee565b50506001821b611fd1565b5060208310610133831016604e8410600b8410161715611f91575081810a611fd1565b611f9b8383611eb5565b807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115611fcd57611fcd611dee565b0290505b92915050565b6000611bcc60ff841683611f16565b60008219821115611ff957611ff9611dee565b500190565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff048311821515161561203657612036611dee565b500290565b600082612071577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b60006020828403121561208857600080fd5b8151611bcc81611a6e56fea26469706673582212206f61f81e4ace74a4cc9a3b7ee26a66e614d418ec71986a85adf9fe762057b2a564736f6c634300080b0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b506004361061016c5760003560e01c80638da5cb5b116100cd578063bedb86fb11610081578063e635d5f211610066578063e635d5f214610301578063e72f6e30146103a0578063f2fde38b146103b357600080fd5b8063bedb86fb146102d8578063cf5303cf146102eb57600080fd5b8063b018895c116100b2578063b018895c1461029f578063b2236021146102b2578063b73cc2a3146102c557600080fd5b80638da5cb5b1461026e578063af9d98a91461028c57600080fd5b8063539efd4b116101245780636c7be337116101095780636c7be33714610230578063715018a614610243578063879765831461024b57600080fd5b8063539efd4b146101db5780635c975abb1461021357600080fd5b80632ce962cf116101555780632ce962cf1461019957806331b71057146101ac578063453943f0146101bf57600080fd5b80630a69af31146101715780630bca886914610186575b600080fd5b61018461017f366004611a9e565b6103c6565b005b610184610194366004611b03565b6107a4565b6101846101a7366004611b2f565b610851565b6101846101ba366004611b2f565b610928565b6101c861271081565b6040519081526020015b60405180910390f35b6101ee6101e9366004611b68565b610a38565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020016101d2565b6003546102209060ff1681565b60405190151581526020016101d2565b61018461023e366004611b81565b610a6f565b610184610c20565b610220610259366004611baf565b60046020526000908152604090205460ff1681565b60005473ffffffffffffffffffffffffffffffffffffffff166101ee565b61018461029a366004611baf565b610cad565b6101846102ad366004611b03565b610d59565b6101846102c0366004611baf565b610e06565b6101846102d3366004611b03565b611141565b6101846102e6366004611bd3565b6111ef565b6102f36112a1565b6040516101d2929190611bf0565b61035c61030f366004611baf565b60026020819052600091825260409091208054600182015492820154600383015460049093015460ff83169461010090930473ffffffffffffffffffffffffffffffffffffffff16939086565b60408051961515875273ffffffffffffffffffffffffffffffffffffffff9095166020870152938501929092526060840152608083015260a082015260c0016101d2565b6101846103ae366004611baf565b611621565b6101846103c1366004611baf565b6117ce565b60005473ffffffffffffffffffffffffffffffffffffffff16331461044c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b6040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff868116600483015260009190861690635a5efc8b906024016101e060405180830381865afa1580156104bd573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906104e19190611cea565b9050806101c0015161051f576040517f0f9d745400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b61271082111561055b576040517f9a124c8000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040805160c081018252881515815273ffffffffffffffffffffffffffffffffffffffff808816602080840191825242848601908152606085018a8152608086018a815260a087018a81528e87166000908152600295869052899020975188549651909716610100027fffffffffffffffffffffff0000000000000000000000000000000000000000ff971515979097167fffffffffffffffffffffff000000000000000000000000000000000000000000909616959095179590951786559051600186015551908401559051600383015551600490910155517f12eab20548b80c832c05e80d43b04913c1fdf7bd639ebebadfd9e407250bff3b906106aa90899089908990899089908990951515865273ffffffffffffffffffffffffffffffffffffffff94851660208701529290931660408501526060840152608083019190915260a082015260c00190565b60405180910390a160005b60015481101561072a578673ffffffffffffffffffffffffffffffffffffffff16600182815481106106e9576106e9611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16141561071857505061079c565b8061072281611e1d565b9150506106b5565b50506001805480820182556000919091527fb10e2d527612073b26eecdfd717e6a320cf44b4afac2b0732d9fcbe2b7fa0cf60180547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff87161790555b505050505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610825576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff909116600090815260026020526040902060040155565b60005473ffffffffffffffffffffffffffffffffffffffff1633146108d2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff91909116600090815260026020526040902080547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0016911515919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff1633146109a9576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff821660008181526004602090815260409182902080547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00168515159081179091558251938452908301527fffbdc28f0395f8dd81699928814abd1846ddbad638fe3482c8375836a4e9825291015b60405180910390a15050565b60018181548110610a4857600080fd5b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16905081565b60005473ffffffffffffffffffffffffffffffffffffffff163314610af0576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b6040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff838116600483015260009190831690635a5efc8b906024016101e060405180830381865afa158015610b61573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610b859190611cea565b9050806101c00151610bc3576040517f0f9d745400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5073ffffffffffffffffffffffffffffffffffffffff9182166000908152600260205260409020805492909116610100027fffffffffffffffffffffff0000000000000000000000000000000000000000ff909216919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff163314610ca1576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b610cab60006118fe565b565b3360009081526004602052604090205460ff16610cf6576040517f82b4290000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b73ffffffffffffffffffffffffffffffffffffffff81166000818152600260209081526040918290204260019091015590519182527f549d5a8cc9d7d0d28c5c93782ae549548749ec3884c725765a8570597d6a13f8910160405180910390a150565b60005473ffffffffffffffffffffffffffffffffffffffff163314610dda576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff909116600090815260026020526040902060030155565b60005473ffffffffffffffffffffffffffffffffffffffff163314610e87576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff60005b600154811015610f25578273ffffffffffffffffffffffffffffffffffffffff1660018281548110610edf57610edf611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff161415610f1357610f1081611973565b91505b80610f1d81611e1d565b915050610eab565b507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff81131561110b5773ffffffffffffffffffffffffffffffffffffffff82166000908152600260208190526040822080547fffffffffffffffffffffff000000000000000000000000000000000000000000168155600180820184905591810183905560038101839055600401919091558054610fc4908290611e56565b81548110610fd457610fd4611dbf565b60009182526020909120015473ffffffffffffffffffffffffffffffffffffffff16600161100183611a02565b8154811061101157611011611dbf565b9060005260206000200160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550600180548061106a5761106a611e6d565b60008281526020908190207fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff908301810180547fffffffffffffffffffffffff000000000000000000000000000000000000000016905590910190915560405173ffffffffffffffffffffffffffffffffffffffff841681527fdd2f9126294675e89c6ca967164843d07ab1cc694b6812112c89c6ae64eed7c79101610a2c565b6040517f6588847000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146111c2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff90911660009081526002602081905260409091200155565b60005473ffffffffffffffffffffffffffffffffffffffff163314611270576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b600380547fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0016911515919091179055565b60035460009060609060ff16156112d9576040805160006020820181905291015b604051602081830303815290604052915091509091565b60005b60015481101561160c576000600182815481106112fb576112fb611dbf565b600091825260208083209091015473ffffffffffffffffffffffffffffffffffffffff9081168084526002808452604094859020855160c081018752815460ff811615801583526101009091049095169581019590955260018101549585019590955284015460608401526003840154608084015260049093015460a0830152919250906115f75760208101516040517f5a5efc8b00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff84811660048301526000921690635a5efc8b906024016101e060405180830381865afa1580156113f7573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061141b9190611cea565b9050806101c00151156115f5576000816040015173ffffffffffffffffffffffffffffffffffffffff1663a035b1fe6040518163ffffffff1660e01b8152600401602060405180830381865afa158015611479573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061149d9190611e9c565b82519091506000906114b090600a611fd7565b828460e001518560c001516114c59190611fe6565b6114cf9190611ffe565b6114d9919061203b565b9050836080015184604001516114ef9190611fe6565b42101580156115115750836060015183610120015161150e9190611fe6565b81115b156115f2576000836101200151826115299190611e56565b90506127108560a001518261153e9190611ffe565b611548919061203b565b6115529082611e56565b6020958601516040805173ffffffffffffffffffffffffffffffffffffffff928316602482015298909116604489015260648089019290925280518089039092018252608490970190965250505050810180517bffffffffffffffffffffffffffffffffffffffffffffffffffffffff167fc2ceb95f00000000000000000000000000000000000000000000000000000000179052600194909350915050565b50505b505b5050808061160490611e1d565b9150506112dc565b506040805160006020820181905291016112c2565b60005473ffffffffffffffffffffffffffffffffffffffff1633146116a2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b6040517f70a0823100000000000000000000000000000000000000000000000000000000815230600482015273ffffffffffffffffffffffffffffffffffffffff82169063a9059cbb90339083906370a0823190602401602060405180830381865afa158015611716573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061173a9190611e9c565b6040517fffffffff0000000000000000000000000000000000000000000000000000000060e085901b16815273ffffffffffffffffffffffffffffffffffffffff909216600483015260248201526044016020604051808303816000875af11580156117aa573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061113d9190612076565b60005473ffffffffffffffffffffffffffffffffffffffff16331461184f576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610443565b73ffffffffffffffffffffffffffffffffffffffff81166118f2576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f64647265737300000000000000000000000000000000000000000000000000006064820152608401610443565b6118fb816118fe565b50565b6000805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60007f800000000000000000000000000000000000000000000000000000000000000082106119fe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601460248201527f53616665436173743a2062616420696e743235360000000000000000000000006044820152606401610443565b5090565b6000808212156119fe576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601560248201527f53616665436173743a206261642075696e7432353600000000000000000000006044820152606401610443565b80151581146118fb57600080fd5b73ffffffffffffffffffffffffffffffffffffffff811681146118fb57600080fd5b60008060008060008060c08789031215611ab757600080fd5b8635611ac281611a6e565b95506020870135611ad281611a7c565b94506040870135611ae281611a7c565b959894975094956060810135955060808101359460a0909101359350915050565b60008060408385031215611b1657600080fd5b8235611b2181611a7c565b946020939093013593505050565b60008060408385031215611b4257600080fd5b8235611b4d81611a7c565b91506020830135611b5d81611a6e565b809150509250929050565b600060208284031215611b7a57600080fd5b5035919050565b60008060408385031215611b9457600080fd5b8235611b9f81611a7c565b91506020830135611b5d81611a7c565b600060208284031215611bc157600080fd5b8135611bcc81611a7c565b9392505050565b600060208284031215611be557600080fd5b8135611bcc81611a6e565b821515815260006020604081840152835180604085015260005b81811015611c2657858101830151858201606001528201611c0a565b81811115611c38576000606083870101525b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe01692909201606001949350505050565b6040516101e0810167ffffffffffffffff81118282101715611cb8577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405290565b805160ff81168114611ccf57600080fd5b919050565b8051611ccf81611a7c565b8051611ccf81611a6e565b60006101e08284031215611cfd57600080fd5b611d05611c6d565b611d0e83611cbe565b8152611d1c60208401611cd4565b6020820152611d2d60408401611cd4565b6040820152606083810151908201526080808401519082015260a0808401519082015260c0808401519082015260e08084015190820152610100808401519082015261012080840151908201526101408084015190820152610160808401519082015261018080840151908201526101a080840151908201526101c0611db4818501611cdf565b908201529392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611e4f57611e4f611dee565b5060010190565b600082821015611e6857611e68611dee565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603160045260246000fd5b600060208284031215611eae57600080fd5b5051919050565b600181815b80851115611f0e57817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115611ef457611ef4611dee565b80851615611f0157918102915b93841c9390800290611eba565b509250929050565b600082611f2557506001611fd1565b81611f3257506000611fd1565b8160018114611f485760028114611f5257611f6e565b6001915050611fd1565b60ff841115611f6357611f63611dee565b50506001821b611fd1565b5060208310610133831016604e8410600b8410161715611f91575081810a611fd1565b611f9b8383611eb5565b807fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04821115611fcd57611fcd611dee565b0290505b92915050565b6000611bcc60ff841683611f16565b60008219821115611ff957611ff9611dee565b500190565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff048311821515161561203657612036611dee565b500290565b600082612071577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b60006020828403121561208857600080fd5b8151611bcc81611a6e56fea26469706673582212206f61f81e4ace74a4cc9a3b7ee26a66e614d418ec71986a85adf9fe762057b2a564736f6c634300080b0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "addHarvestJob(bool,address,address,uint256,uint256,uint256)": {
+        "params": {
+          "active": "A flag for whether or not the harvest job is active.",
+          "alchemist": "The address of the alchemist to be harvested.",
+          "minimumDelay": "The minimum delay (in seconds) needed between successive runs of the job.",
+          "minimumHarvestAmount": "The minimum amount of harvestable funds required in order to run the harvest job.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "checker()": {
+        "returns": {
+          "canExec": "    If a harvest is needed",
+          "execPayload": "The payload to forward to the AlchemixHarvester"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "recoverFunds(address)": {
+        "params": {
+          "token": "The token to remove."
+        }
+      },
+      "removeHarvestJob(address)": {
+        "params": {
+          "yieldToken": "The address of the yield token to remove."
+        }
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "setActive(address,bool)": {
+        "params": {
+          "active": "A flag for whether or not the harvest job is active.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "setAlchemist(address,address)": {
+        "params": {
+          "alchemist": "The address of the alchemist to be harvested.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "setHarvester(address,bool)": {
+        "params": {
+          "harvester": "The address of the target harvester.",
+          "status": "The status to set for the target harvester."
+        }
+      },
+      "setMinimumDelay(address,uint256)": {
+        "params": {
+          "minimumDelay": "The minimum delay (in seconds) needed between successive runs of the job.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "setMinimumHarvestAmount(address,uint256)": {
+        "params": {
+          "minimumHarvestAmount": "The minimum amount of harvestable funds required in order to run the harvest job.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "setPause(bool)": {
+        "params": {
+          "pauseState": "The pause state to set."
+        }
+      },
+      "setSlippageBps(address,uint256)": {
+        "params": {
+          "slippageBps": "The amount of slippage to accept during a harvest.",
+          "yieldToken": "The address of the yield token to be harvested."
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "stateVariables": {
+      "harvestJobs": {
+        "details": "yieldToken => HarvestJob."
+      },
+      "harvesters": {
+        "details": "A mapping of the registered harvesters."
+      },
+      "paused": {
+        "details": "Whether or not the resolver is paused."
+      },
+      "yieldTokens": {
+        "details": "The list of yield tokens that define harvest jobs."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "HarvestJobDoesNotExist()": [
+        {
+          "notice": "Thrown when attempting to remove a harvest job that does not currently exist."
+        }
+      ],
+      "IllegalArgument()": [
+        {
+          "notice": "Thrown when an illegal argument is given."
+        }
+      ],
+      "Unauthorized()": [
+        {
+          "notice": "Thrown when an unauthorized address attempts to access a protected function."
+        }
+      ],
+      "YieldTokenDisabled()": [
+        {
+          "notice": "Thrown when the yield token of a harvest job being added is disabled in the alchemist of the harvest job being added."
+        }
+      ]
+    },
+    "events": {
+      "RecordHarvest(address)": {
+        "notice": "Emitted when a harvest is recorded."
+      },
+      "RemoveHarvestJob(address)": {
+        "notice": "Emitted when a harvest job is removed from the list."
+      },
+      "SetHarvestJob(bool,address,address,uint256,uint256,uint256)": {
+        "notice": "Emitted when details of a harvest job are set."
+      },
+      "SetHarvester(address,bool)": {
+        "notice": "Emitted when a harvester status is updated."
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addHarvestJob(bool,address,address,uint256,uint256,uint256)": {
+        "notice": "Sets the parameters of a harvest job and adds it to the list if needed."
+      },
+      "checker()": {
+        "notice": "Check if there is a harvest that needs to be run. Returns FALSE if the resolver is paused. Returns TRUE for the first harvest job that meets the following criteria:     - the harvest job is active     - `yieldToken` is enabled in the Alchemist     - minimumDelay seconds have passed since the `yieldToken` was last harvested     - the expected harvest amount is greater than minimumHarvestAmount Returns FALSE if no harvest jobs meet the above criteria."
+      },
+      "recoverFunds(address)": {
+        "notice": "Remove tokens that were accidentally sent to the resolver."
+      },
+      "removeHarvestJob(address)": {
+        "notice": "Removes a harvest job from the list of harvest jobs."
+      },
+      "setActive(address,bool)": {
+        "notice": "Sets if a harvest job is active."
+      },
+      "setAlchemist(address,address)": {
+        "notice": "Sets the alchemist of a harvest job."
+      },
+      "setHarvester(address,bool)": {
+        "notice": "Enables or disables a harvester from calling protected harvester-only functions."
+      },
+      "setMinimumDelay(address,uint256)": {
+        "notice": "Sets the minimum delay of a harvest job."
+      },
+      "setMinimumHarvestAmount(address,uint256)": {
+        "notice": "Sets the minimum harvest amount of a harvest job."
+      },
+      "setPause(bool)": {
+        "notice": "Pauses and un-pauses the resolver."
+      },
+      "setSlippageBps(address,uint256)": {
+        "notice": "Sets the amount of slippage for a harvest job."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7,
+        "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 2316,
+        "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+        "label": "yieldTokens",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_array(t_address)dyn_storage"
+      },
+      {
+        "astId": 2322,
+        "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+        "label": "harvestJobs",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_struct(HarvestJob)2309_storage)"
+      },
+      {
+        "astId": 2325,
+        "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+        "label": "paused",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_bool"
+      },
+      {
+        "astId": 2330,
+        "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+        "label": "harvesters",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_mapping(t_address,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_address,t_struct(HarvestJob)2309_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct HarvestResolver.HarvestJob)",
+        "numberOfBytes": "32",
+        "value": "t_struct(HarvestJob)2309_storage"
+      },
+      "t_struct(HarvestJob)2309_storage": {
+        "encoding": "inplace",
+        "label": "struct HarvestResolver.HarvestJob",
+        "members": [
+          {
+            "astId": 2298,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "active",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 2300,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "alchemist",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_address"
+          },
+          {
+            "astId": 2302,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "lastHarvest",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2304,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "minimumHarvestAmount",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2306,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "minimumDelay",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 2308,
+            "contract": "contracts/HarvestResolver.sol:HarvestResolver",
+            "label": "slippageBps",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "160"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

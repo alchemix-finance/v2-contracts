@@ -1,0 +1,379 @@
+{
+  "address": "0x51c1a7Ab22b6482852d85311aC2076013F9E6142",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_gelatoPoker",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_maxGasPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "_resolver",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "TheGasIsTooDamnHigh",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Unauthorized",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newMaxGasPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "SetMaxGasPrice",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newPoker",
+          "type": "address"
+        }
+      ],
+      "name": "SetPoker",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "gelatoPoker",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "alchemist",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "yieldToken",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "minimumAmountOut",
+          "type": "uint256"
+        }
+      ],
+      "name": "harvest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "maxGasPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "resolver",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "newGasPrice",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMaxGasPrice",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newPoker",
+          "type": "address"
+        }
+      ],
+      "name": "setPoker",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_resolver",
+          "type": "address"
+        }
+      ],
+      "name": "setResolver",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0xd305942215986848e018049f3f881a45210ab3cca03354fe35ab1933ad5d41b2",
+  "receipt": {
+    "to": null,
+    "from": "0x526D542FFBAe26D510cD610b8050438586fd203C",
+    "contractAddress": "0x51c1a7Ab22b6482852d85311aC2076013F9E6142",
+    "transactionIndex": 6,
+    "gasUsed": "638823",
+    "logsBloom": "0x00000020000000000000000000000000000000000000000000800000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010001000000000000000000000000000000000000020000000000000000000800000000000000000000000000000000401000000000000000000000100002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x0001c3c600001072f226017bb2089b9ff22cacd752571737a8d6ebb9874a91a6",
+    "transactionHash": "0xd305942215986848e018049f3f881a45210ab3cca03354fe35ab1933ad5d41b2",
+    "logs": [
+      {
+        "transactionIndex": 6,
+        "blockNumber": 38920262,
+        "transactionHash": "0xd305942215986848e018049f3f881a45210ab3cca03354fe35ab1933ad5d41b2",
+        "address": "0x51c1a7Ab22b6482852d85311aC2076013F9E6142",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000526d542ffbae26d510cd610b8050438586fd203c"
+        ],
+        "data": "0x",
+        "logIndex": 14,
+        "blockHash": "0x0001c3c600001072f226017bb2089b9ff22cacd752571737a8d6ebb9874a91a6"
+      }
+    ],
+    "blockNumber": 38920262,
+    "cumulativeGasUsed": "1220144",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x6EDe1597c05A0ca77031cBA43Ab887ccf24cd7e8",
+    5000000000000,
+    "0x443d61f3E9F33422b4583632b37047bDb1f0f4e8"
+  ],
+  "solcInputHash": "3a1dc3cc0cb57037bc967075cab29730",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.11+commit.d7f03943\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_gelatoPoker\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_maxGasPrice\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"_resolver\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"TheGasIsTooDamnHigh\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Unauthorized\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newMaxGasPrice\",\"type\":\"uint256\"}],\"name\":\"SetMaxGasPrice\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newPoker\",\"type\":\"address\"}],\"name\":\"SetPoker\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"gelatoPoker\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"alchemist\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"yieldToken\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"minimumAmountOut\",\"type\":\"uint256\"}],\"name\":\"harvest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"maxGasPrice\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"resolver\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"newGasPrice\",\"type\":\"uint256\"}],\"name\":\"setMaxGasPrice\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newPoker\",\"type\":\"address\"}],\"name\":\"setPoker\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_resolver\",\"type\":\"address\"}],\"name\":\"setResolver\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"harvest(address,address,uint256)\":{\"params\":{\"alchemist\":\"The address of the target alchemist.\",\"minimumAmountOut\":\"The minimum amount of tokens expected to be harvested.\",\"yieldToken\":\"The address of the target yield token.\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"setMaxGasPrice(uint256)\":{\"params\":{\"newGasPrice\":\"The new maximum gas price.\"}},\"setPoker(address)\":{\"params\":{\"newPoker\":\"The new address of the gelato poker.\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"errors\":{\"TheGasIsTooDamnHigh()\":[{\"notice\":\"Thrown when the gas price set on the tx is greater than the `maxGasPrice`.\"}],\"Unauthorized()\":[{\"notice\":\"Thrown when any address but the `gelatoPoker` attempts to call the upkeep function.\"}]},\"events\":{\"SetMaxGasPrice(uint256)\":{\"notice\":\"Emitted when the `maxGasPrice` is updated.\"},\"SetPoker(address)\":{\"notice\":\"Emitted when the `gelatoPoker` address is updated.\"}},\"kind\":\"user\",\"methods\":{\"gelatoPoker()\":{\"notice\":\"The address of the whitelisted gelato contract.\"},\"harvest(address,address,uint256)\":{\"notice\":\"Runs a the specified harvest job.\"},\"maxGasPrice()\":{\"notice\":\"The maximum gas price to be spent on any call from the gelato poker.\"},\"resolver()\":{\"notice\":\"The address of the resolver.\"},\"setMaxGasPrice(uint256)\":{\"notice\":\"Sets the maximum gas price that can be used for an upkeep call.\"},\"setPoker(address)\":{\"notice\":\"Sets the address of the whitelisted gelato poker contract.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/AlchemixHarvester.sol\":\"AlchemixHarvester\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":999999},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0x24e0364e503a9bbde94c715d26573a76f14cd2a202d45f96f52134ab806b67b9\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/AlchemixGelatoKeeper.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\nimport { Ownable } from \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n\\ncontract AlchemixGelatoKeeper is Ownable {\\n  /// @notice Thrown when the gas price set on the tx is greater than the `maxGasPrice`.\\n  error TheGasIsTooDamnHigh();\\n  /// @notice Thrown when any address but the `gelatoPoker` attempts to call the upkeep function.\\n  error Unauthorized();\\n\\n  /// @notice Emitted when the `gelatoPoker` address is updated.\\n  ///\\n  /// @param newPoker The new address of the `gelatoPoker`.\\n  event SetPoker(address newPoker);\\n\\n  /// @notice Emitted when the `maxGasPrice` is updated.\\n  ///\\n  /// @param newMaxGasPrice The new maximum gas price.\\n  event SetMaxGasPrice(uint256 newMaxGasPrice);\\n\\n  /// @notice The address of the whitelisted gelato contract.\\n  address public gelatoPoker;\\n  /// @notice The maximum gas price to be spent on any call from the gelato poker.\\n  uint256 public maxGasPrice;\\n\\n  constructor(address _gelatoPoker, uint256 _maxGasPrice) Ownable() {\\n    gelatoPoker = _gelatoPoker;\\n    maxGasPrice = _maxGasPrice;\\n  }\\n\\n  /// @notice Sets the address of the whitelisted gelato poker contract.\\n  ///\\n  /// @param newPoker The new address of the gelato poker.\\n  function setPoker(address newPoker) external onlyOwner {\\n    gelatoPoker = newPoker;\\n    emit SetPoker(gelatoPoker);\\n  }\\n\\n  /// @notice Sets the maximum gas price that can be used for an upkeep call.\\n  ///\\n  /// @param newGasPrice The new maximum gas price.\\n  function setMaxGasPrice(uint256 newGasPrice) external onlyOwner {\\n    maxGasPrice = newGasPrice;\\n    emit SetMaxGasPrice(maxGasPrice);\\n  }\\n}\\n\",\"keccak256\":\"0xd037c3860484fe82e60c651cb9023b6aa35484c5ee7bfaad4bbbc8b70dd2361a\"},\"contracts/AlchemixHarvester.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"./AlchemixGelatoKeeper.sol\\\";\\nimport \\\"./interfaces/IAlchemistV2.sol\\\";\\nimport \\\"./interfaces/IHarvestResolver.sol\\\";\\nimport \\\"./interfaces/IAlchemixHarvester.sol\\\";\\n\\ncontract AlchemixHarvester is IAlchemixHarvester, AlchemixGelatoKeeper {\\n  /// @notice The address of the resolver.\\n  address public resolver;\\n\\n  constructor(\\n    address _gelatoPoker,\\n    uint256 _maxGasPrice,\\n    address _resolver\\n  ) AlchemixGelatoKeeper(_gelatoPoker, _maxGasPrice) {\\n    resolver = _resolver;\\n  }\\n\\n  function setResolver(address _resolver) external onlyOwner {\\n    resolver = _resolver;\\n  }\\n\\n  /// @notice Runs a the specified harvest job.\\n  ///\\n  /// @param alchemist        The address of the target alchemist.\\n  /// @param yieldToken       The address of the target yield token.\\n  /// @param minimumAmountOut The minimum amount of tokens expected to be harvested.\\n  function harvest(\\n    address alchemist,\\n    address yieldToken,\\n    uint256 minimumAmountOut\\n  ) external override {\\n    if (msg.sender != gelatoPoker) {\\n      revert Unauthorized();\\n    }\\n    if (tx.gasprice > maxGasPrice) {\\n      revert TheGasIsTooDamnHigh();\\n    }\\n    IAlchemistV2(alchemist).harvest(yieldToken, minimumAmountOut);\\n    IHarvestResolver(resolver).recordHarvest(yieldToken);\\n  }\\n}\\n\",\"keccak256\":\"0xe1debbc7db2ce7a7845620a6c6b7cf39091f6c2b5bc072230b9f336e633b0f09\"},\"contracts/interfaces/IAlchemistV2.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IAlchemistV2 {\\n    struct YieldTokenParams {\\n        uint8 decimals;\\n        address underlyingToken;\\n        address adapter;\\n        uint256 maximumLoss;\\n        uint256 maximumExpectedValue;\\n        uint256 creditUnlockRate;\\n        uint256 activeBalance;\\n        uint256 harvestableBalance;\\n        uint256 totalShares;\\n        uint256 expectedValue;\\n        uint256 pendingCredit;\\n        uint256 distributedCredit;\\n        uint256 lastDistributionBlock;\\n        uint256 accruedWeight;\\n        bool enabled;\\n    }\\n\\n    struct YieldTokenConfig {\\n        address adapter;\\n        uint256 maximumLoss;\\n        uint256 maximumExpectedValue;\\n        uint256 creditUnlockRate;\\n    }\\n\\n    function harvest(address yieldToken, uint256 minimumAmountOut) external;\\n\\n    function getYieldTokenParameters(address yieldToken)\\n        external\\n        view\\n        returns (YieldTokenParams memory params);\\n}\\n\",\"keccak256\":\"0x39d8b4e9e7da90552015a4e6e25e0958915eed9459d77b1ee8486b752ddf3cd4\"},\"contracts/interfaces/IAlchemixHarvester.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IAlchemixHarvester {\\n  function harvest(\\n    address alchemist,\\n    address yieldToken,\\n    uint256 minimumAmountOut\\n  ) external;\\n}\\n\",\"keccak256\":\"0x023a589a1af6b8a752bdec6cf0a1ac4d49babbcaf819db83fb2d558acbf26738\"},\"contracts/interfaces/IHarvestResolver.sol\":{\"content\":\"pragma solidity ^0.8.11;\\n\\ninterface IHarvestResolver {\\n    function recordHarvest(address yieldToken) external;\\n}\\n\",\"keccak256\":\"0x4742ac507b25475e3b76a34803c49ce61613df2735a7db60e550659632a7da55\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50604051610a1e380380610a1e83398101604081905261002f916100e3565b828261003a33610077565b600180546001600160a01b039384166001600160a01b031991821617909155600291909155600380549390921692169190911790555061011f9050565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b80516001600160a01b03811681146100de57600080fd5b919050565b6000806000606084860312156100f857600080fd5b610101846100c7565b925060208401519150610116604085016100c7565b90509250925092565b6108f08061012e6000396000f3fe608060405234801561001057600080fd5b50600436106100be5760003560e01c80638da5cb5b11610076578063d2fa635e1161005b578063d2fa635e14610192578063f2fde38b146101a5578063f4430dd8146101b857600080fd5b80638da5cb5b14610161578063c2ceb95f1461017f57600080fd5b80633de39c11116100a75780633de39c111461012d5780634e543b2614610144578063715018a61461015957600080fd5b806304f3bcec146100c357806327332dc51461010d575b600080fd5b6003546100e39073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b6001546100e39073ffffffffffffffffffffffffffffffffffffffff1681565b61013660025481565b604051908152602001610104565b610157610152366004610843565b6101cb565b005b610157610298565b60005473ffffffffffffffffffffffffffffffffffffffff166100e3565b61015761018d366004610865565b610325565b6101576101a03660046108a1565b6104c4565b6101576101b3366004610843565b610581565b6101576101c6366004610843565b6106b1565b60005473ffffffffffffffffffffffffffffffffffffffff163314610251576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b600380547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff163314610319576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b61032360006107a5565b565b60015473ffffffffffffffffffffffffffffffffffffffff163314610376576040517f82b4290000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6002543a11156103b2576040517fc0f965d800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040517f018ee9b700000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff83811660048301526024820183905284169063018ee9b790604401600060405180830381600087803b15801561042257600080fd5b505af1158015610436573d6000803e3d6000fd5b50506003546040517faf9d98a900000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff8681166004830152909116925063af9d98a99150602401600060405180830381600087803b1580156104a757600080fd5b505af11580156104bb573d6000803e3d6000fd5b50505050505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610545576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b60028190556040518181527f6b58e904da592e8cbf6969fb29df3469c5ee45b11f377cf9283dd31de72029d4906020015b60405180910390a150565b60005473ffffffffffffffffffffffffffffffffffffffff163314610602576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b73ffffffffffffffffffffffffffffffffffffffff81166106a5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f64647265737300000000000000000000000000000000000000000000000000006064820152608401610248565b6106ae816107a5565b50565b60005473ffffffffffffffffffffffffffffffffffffffff163314610732576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b600180547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff83169081179091556040519081527fdc29c4929e83c41957dc5f6d13c5702f54fa9670f6e0b1b95ede8582e9dda14e90602001610576565b6000805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461083e57600080fd5b919050565b60006020828403121561085557600080fd5b61085e8261081a565b9392505050565b60008060006060848603121561087a57600080fd5b6108838461081a565b92506108916020850161081a565b9150604084013590509250925092565b6000602082840312156108b357600080fd5b503591905056fea264697066735822122055a927dc448415e150fcb8dd04a1670eadfebf9902a9c2aaeba3b70ae36199ea64736f6c634300080b0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100be5760003560e01c80638da5cb5b11610076578063d2fa635e1161005b578063d2fa635e14610192578063f2fde38b146101a5578063f4430dd8146101b857600080fd5b80638da5cb5b14610161578063c2ceb95f1461017f57600080fd5b80633de39c11116100a75780633de39c111461012d5780634e543b2614610144578063715018a61461015957600080fd5b806304f3bcec146100c357806327332dc51461010d575b600080fd5b6003546100e39073ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff90911681526020015b60405180910390f35b6001546100e39073ffffffffffffffffffffffffffffffffffffffff1681565b61013660025481565b604051908152602001610104565b610157610152366004610843565b6101cb565b005b610157610298565b60005473ffffffffffffffffffffffffffffffffffffffff166100e3565b61015761018d366004610865565b610325565b6101576101a03660046108a1565b6104c4565b6101576101b3366004610843565b610581565b6101576101c6366004610843565b6106b1565b60005473ffffffffffffffffffffffffffffffffffffffff163314610251576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b600380547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b60005473ffffffffffffffffffffffffffffffffffffffff163314610319576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b61032360006107a5565b565b60015473ffffffffffffffffffffffffffffffffffffffff163314610376576040517f82b4290000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6002543a11156103b2576040517fc0f965d800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6040517f018ee9b700000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff83811660048301526024820183905284169063018ee9b790604401600060405180830381600087803b15801561042257600080fd5b505af1158015610436573d6000803e3d6000fd5b50506003546040517faf9d98a900000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff8681166004830152909116925063af9d98a99150602401600060405180830381600087803b1580156104a757600080fd5b505af11580156104bb573d6000803e3d6000fd5b50505050505050565b60005473ffffffffffffffffffffffffffffffffffffffff163314610545576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b60028190556040518181527f6b58e904da592e8cbf6969fb29df3469c5ee45b11f377cf9283dd31de72029d4906020015b60405180910390a150565b60005473ffffffffffffffffffffffffffffffffffffffff163314610602576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b73ffffffffffffffffffffffffffffffffffffffff81166106a5576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f64647265737300000000000000000000000000000000000000000000000000006064820152608401610248565b6106ae816107a5565b50565b60005473ffffffffffffffffffffffffffffffffffffffff163314610732576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610248565b600180547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff83169081179091556040519081527fdc29c4929e83c41957dc5f6d13c5702f54fa9670f6e0b1b95ede8582e9dda14e90602001610576565b6000805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461083e57600080fd5b919050565b60006020828403121561085557600080fd5b61085e8261081a565b9392505050565b60008060006060848603121561087a57600080fd5b6108838461081a565b92506108916020850161081a565b9150604084013590509250925092565b6000602082840312156108b357600080fd5b503591905056fea264697066735822122055a927dc448415e150fcb8dd04a1670eadfebf9902a9c2aaeba3b70ae36199ea64736f6c634300080b0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "harvest(address,address,uint256)": {
+        "params": {
+          "alchemist": "The address of the target alchemist.",
+          "minimumAmountOut": "The minimum amount of tokens expected to be harvested.",
+          "yieldToken": "The address of the target yield token."
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "setMaxGasPrice(uint256)": {
+        "params": {
+          "newGasPrice": "The new maximum gas price."
+        }
+      },
+      "setPoker(address)": {
+        "params": {
+          "newPoker": "The new address of the gelato poker."
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "errors": {
+      "TheGasIsTooDamnHigh()": [
+        {
+          "notice": "Thrown when the gas price set on the tx is greater than the `maxGasPrice`."
+        }
+      ],
+      "Unauthorized()": [
+        {
+          "notice": "Thrown when any address but the `gelatoPoker` attempts to call the upkeep function."
+        }
+      ]
+    },
+    "events": {
+      "SetMaxGasPrice(uint256)": {
+        "notice": "Emitted when the `maxGasPrice` is updated."
+      },
+      "SetPoker(address)": {
+        "notice": "Emitted when the `gelatoPoker` address is updated."
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "gelatoPoker()": {
+        "notice": "The address of the whitelisted gelato contract."
+      },
+      "harvest(address,address,uint256)": {
+        "notice": "Runs a the specified harvest job."
+      },
+      "maxGasPrice()": {
+        "notice": "The maximum gas price to be spent on any call from the gelato poker."
+      },
+      "resolver()": {
+        "notice": "The address of the resolver."
+      },
+      "setMaxGasPrice(uint256)": {
+        "notice": "Sets the maximum gas price that can be used for an upkeep call."
+      },
+      "setPoker(address)": {
+        "notice": "Sets the address of the whitelisted gelato poker contract."
+      }
+    },
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7,
+        "contract": "contracts/AlchemixHarvester.sol:AlchemixHarvester",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 2092,
+        "contract": "contracts/AlchemixHarvester.sol:AlchemixHarvester",
+        "label": "gelatoPoker",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_address"
+      },
+      {
+        "astId": 2095,
+        "contract": "contracts/AlchemixHarvester.sol:AlchemixHarvester",
+        "label": "maxGasPrice",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 2162,
+        "contract": "contracts/AlchemixHarvester.sol:AlchemixHarvester",
+        "label": "resolver",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_address"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
