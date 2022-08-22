@@ -8,3 +8,6 @@
 
 ### Run unit tests
 `yarn test`
+
+### Run localnode with contracts
+`yarn startnode`

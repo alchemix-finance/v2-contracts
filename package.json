@@ -50,8 +50,8 @@
     "compile": "npx hardhat compile",
     "coverage": "npx hardhat coverage",
     "docgen": "npx hardhat docgen",
-    "fork": "cp -r deployments/mainnet/ deployments/localhost/; echo 1337 > deployments/localhost/.chainId; cp ./.openzeppelin/mainnet.json ./.openzeppelin/localhost.json; cp ./.openzeppelin/mainnet.json ./.openzeppelin/unknown-1337.json;",
-    "startnode": "npx hardhat node --no-deploy",
+    "fork": "FORK=true cp -r deployments/mainnet/ deployments/localhost/; echo 1337 > deployments/localhost/.chainId; cp ./.openzeppelin/mainnet.json ./.openzeppelin/localhost.json; cp ./.openzeppelin/mainnet.json ./.openzeppelin/unknown-1337.json;",
+    "startnode": "npx hardhat node",
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "test": "npx hardhat test",
     "typechain": "npx hardhat typechain"
