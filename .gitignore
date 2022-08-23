@@ -1,8 +1,11 @@
 node_modules
+artifacts
+typechain
 .env
 coverage
 coverage.json
 .idea
+.vscode
 yarn-error.log
 
 # Hardhat files
@@ -10,6 +13,7 @@ cache
 
 # Local deployments
 deployments/localhost
+.openzeppelin/unknown-1337.json
 
 # Mac
 .DS_Store

@@ -1,4 +1,4 @@
-# Alchemix V2
+# Alchemix V2 CHALLENGE
 
 ### Install dependencies
 `yarn install`

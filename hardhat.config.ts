@@ -126,7 +126,7 @@ const config = {
 
 if (process.env.FORK) {
   let forking = {
-    url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+    url: `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
   };
   if (process.env.FORK_BLOCK) {
     Object.assign(forking, { blockNumber: Number(process.env.FORK_BLOCK) });
